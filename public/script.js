@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
     // Function to handle user registration
     window.register = function() {
@@ -53,11 +54,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to send reminders
     window.sendReminder = function() {
-        const text = document.getElementById('reminder-text').value;
+        const text = document.getElementById('reminder-text').value.trim();
         const recipient = document.getElementById('reminder-recipient').value;
-        const db = firebase.firestore();
     
-        if (text.trim() === "") {
+        if (!text) {
             alert("Please enter a reminder message.");
             return;
         }
@@ -66,40 +66,40 @@ document.addEventListener('DOMContentLoaded', function() {
             text: text,
             recipient: recipient,
             date: new Date()
-        })
-        .then(function(docRef) {
+        }).then(function(docRef) {
             console.log("Reminder sent with ID: ", docRef.id);
             alert("Reminder sent successfully!");
             document.getElementById('reminder-text').value = '';
-            loadPastReminders();
-        })
-        .catch(function(error) {
+            loadPastReminders(); // Reload the reminders
+        }).catch(function(error) {
             console.error("Error sending reminder: ", error);
             alert("Failed to send reminder.");
         });
     };
-    
 
     // Function to load past reminders
     function loadPastReminders() {
+        const container = document.getElementById('past-reminders');
+        if (!container) {
+            console.error('Failed to find the past-reminders element.');
+            return;
+        }
         const db = firebase.firestore();
         db.collection('reminders').orderBy('date', 'desc').limit(10)
             .get()
             .then(querySnapshot => {
-                const container = document.getElementById('past-reminders');
-                container.innerHTML = '';
+                container.innerHTML = '';  // 确保元素存在再清空内容
                 querySnapshot.forEach(doc => {
                     const reminder = doc.data();
                     const div = document.createElement('div');
                     div.textContent = `${reminder.date.toDate().toDateString()}: ${reminder.text} (To: ${reminder.recipient})`;
                     container.appendChild(div);
                 });
-            })
-            .catch(function(error) {
+            }).catch(function(error) {
                 console.error("Error loading past reminders: ", error);
                 alert("Failed to load past reminders.");
             });
-    }
+    }    
 
     loadPastReminders();
 });
