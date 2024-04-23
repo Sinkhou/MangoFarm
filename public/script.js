@@ -50,4 +50,56 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert("Error resetting password: " + error.message);
             });
     };
+
+    // Function to send reminders
+    window.sendReminder = function() {
+        const text = document.getElementById('reminder-text').value;
+        const recipient = document.getElementById('reminder-recipient').value;
+        const db = firebase.firestore();
+    
+        if (text.trim() === "") {
+            alert("Please enter a reminder message.");
+            return;
+        }
+    
+        db.collection('reminders').add({
+            text: text,
+            recipient: recipient,
+            date: new Date()
+        })
+        .then(function(docRef) {
+            console.log("Reminder sent with ID: ", docRef.id);
+            alert("Reminder sent successfully!");
+            document.getElementById('reminder-text').value = '';
+            loadPastReminders();
+        })
+        .catch(function(error) {
+            console.error("Error sending reminder: ", error);
+            alert("Failed to send reminder.");
+        });
+    };
+    
+
+    // Function to load past reminders
+    function loadPastReminders() {
+        const db = firebase.firestore();
+        db.collection('reminders').orderBy('date', 'desc').limit(10)
+            .get()
+            .then(querySnapshot => {
+                const container = document.getElementById('past-reminders');
+                container.innerHTML = '';
+                querySnapshot.forEach(doc => {
+                    const reminder = doc.data();
+                    const div = document.createElement('div');
+                    div.textContent = `${reminder.date.toDate().toDateString()}: ${reminder.text} (To: ${reminder.recipient})`;
+                    container.appendChild(div);
+                });
+            })
+            .catch(function(error) {
+                console.error("Error loading past reminders: ", error);
+                alert("Failed to load past reminders.");
+            });
+    }
+
+    loadPastReminders();
 });
