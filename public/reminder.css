@@ -1,0 +1,71 @@
+/* reminder.css - Styles specific to the reminder form and its display */
+#send-reminder-form, #past-reminders {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+#send-reminder-form {
+    width: 100%;
+    max-width: 360px;
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 5px;
+}
+
+#send-reminder-form input[type="text"], #send-reminder-form input[type="email"],#send-reminder-form input[type="date"], #send-reminder-form input[type="time"], #send-reminder-form select {
+    width: calc(100% - 24px);
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#send-reminder-form button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #2C4636;
+    color: white;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#past-reminders div {
+    background: white;
+    margin: 5px 0;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: calc(100% - 50px);
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.color-indicator {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.reminder-entry button {
+    padding: 5px 10px;
+    background-color: #ff4444; /* Red color for delete button */
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.reminder-entry button:hover {
+    background-color: #cc0000; /* Darker red on hover */
+}

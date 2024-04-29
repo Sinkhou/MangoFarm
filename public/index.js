@@ -1,3 +1,4 @@
+// index.js
 document.addEventListener('DOMContentLoaded', function() {
     // Function to handle user registration
     window.register = function() {

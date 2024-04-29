@@ -1,0 +1,30 @@
+/* Apply to the main container if it exists, or adjust the selector as needed */
+main {
+    width: 90%; /* or the width you prefer */
+    max-width: 100%; /* or the max width you prefer */
+    margin: 0 auto; /* Center the container */
+    padding: 200px 0; /* Padding above and below the container */
+    box-sizing: border-box;
+}
+
+.nav-button {
+    display: block;
+    width: auto; /* Allow the button to fit content width */
+    max-width: 100%; /* Ensure it doesn't exceed the width of its parent */
+    margin: 10px 0;
+    padding: 15px;
+    background-color: #2C4636;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    overflow: hidden; /* Prevents content from overflowing */
+}
+
+.nav-button:hover {
+    background-color: #1e2e22;
+}

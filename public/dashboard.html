@@ -5,23 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Mango Farm App</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script> <!-- Ensure this script is added to handle Firebase config and initialization -->
 </head>
 <body>
-    <header>
-        <img src="MangoFarmApp.png" alt="Mango Farm App Logo">
-    </header>
+    <div id="header"></div>
     <main>
         <nav class="button-grid">
             <a href="#" class="nav-button">Activity</a>
+            <a href="announcement.html" class="nav-button">Announcement</a>
             <a href="reminder.html" class="nav-button">Reminder</a>
             <a href="#" class="nav-button">Report</a>
             <a href="#" class="nav-button">Inventory</a>
-            <a href="#" class="nav-button">Equipment</a>
+            <a href="equipment.html" class="nav-button">Equipment</a>
             <a href="#" class="nav-button">Employee</a>
+            <a href="javascript:void(0);" onclick="signOut()" class="nav-button">Logout</a>
         </nav>
     </main>
-    <footer>
-        <p>&copy; 2024 Mango Farm App. All rights reserved.</p>
-    </footer>
+    <div id="footer"></div>
+    <script src="dashboard.js"></script>
+    <script src="include.js"></script> <!-- Script to dynamically load header and footer -->
 </body>
 </html>

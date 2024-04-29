@@ -1,10 +1,18 @@
+/* style.css - Common styles used across all pages */
+main {
+    margin-top: 180px; /* Adjusted to exactly below the header */
+    margin-bottom: 100px; /* Adjusted to exactly above the footer */
+    padding: 20px; /* Optional: Adds padding around the content inside main */
+}
+
 body, html {
+    height: 100%;
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
     background: #f4f4f4;
 }
-
 
 header {
     background-color: #2C4636;
@@ -20,102 +28,10 @@ header {
     padding: 0 15px;
 }
 
-
 header img {
     max-width: 400px;
     height: auto;
 }
-
-
-main {
-    margin-top: 220px;
-    margin-bottom: 70px;
-}
-
-
-#auth-container, #send-reminder-form, #past-reminders {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    margin-top: 200px;
-}
-
-
-#login-section, #register-section, #send-reminder-form {
-    width: 100%;
-    max-width: 400px;
-}
-
-
-#login-form, #register-form, #send-reminder-form {
-    background: white;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    margin-bottom: 5px;
-}
-
-
-#login-form input[type="email"], 
-#login-form input[type="password"], 
-#register-form input[type="email"], 
-#register-form input[type="password"],
-#send-reminder-form textarea,
-#send-reminder-form select {
-    width: calc(100% - 24px);
-    padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-
-#login-form button, 
-#register-form button,
-#send-reminder-form button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background-color: #2C4636;
-    color: white;
-    margin-top: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-
-.nav-button {
-    display: block;
-    background-color: #2C4636;
-    color: white;
-    text-decoration: none;
-    padding: 15px 20px;
-    margin: 20px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-    transition: background-color 0.3s;
-    text-align: center;
-    flex-grow: 1;
-}
-
-
-.nav-button:hover {
-    background-color: #1e2e22;
-}
-
-
-#past-reminders div {
-    background: white;
-    margin: 8px 0;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: calc(100% - 24px);
-    text-align: left;
-}
-
 
 footer {
     background-color: #2C4636;

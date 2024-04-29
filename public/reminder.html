@@ -5,26 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reminder - Mango Farm App</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="reminder.css">
     <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
-    <script defer src="script.js"></script>
+    <script src="firebase-config.js"></script>
 </head>
 <body>
-    <header>
-        <img src="MangoFarmApp.png" alt="Mango Farm App Logo">
-    </header>
+    <div id="header"></div>
     <main>
         <form id="send-reminder-form">
-            <label for="reminder-text">Reminder Message:</label>
-            <textarea id="reminder-text" placeholder="Type your reminder here..." required></textarea>
-            <label for="reminder-recipient">Send To:</label>
-            <select id="reminder-recipient">
-                <option value="all">All Employees</option>
-                <option value="managers">Managers</option>
-                <option value="staff">Staff</option>
+            <label for="reminder-title">Title:</label>
+            <input type="text" id="reminder-title" placeholder="Title of the reminder" required>
+            <label for="reminder-email">Email:</label>
+            <input type="email" id="reminder-email" placeholder="Email to notify" required>
+            <label for="reminder-color">Color:</label>
+            <select id="reminder-color" required>
+                <option value="green">Green</option>
+                <option value="yellow">Yellow</option>
+                <option value="red">Red</option>
             </select>
+            <label for="reminder-date">Reminder Date:</label>
+            <input type="date" id="reminder-date" required>
+            <label for="reminder-time">Reminder Time:</label>
+            <input type="time" id="reminder-time" required>
             <button type="button" onclick="sendReminder()">Send Reminder</button>
+            <button type="button" onclick="window.location.href='dashboard.html'">Homescreen</button>
         </form>
         <div id="past-reminders">
             <!-- Past reminders will be loaded here -->
@@ -33,8 +39,8 @@
             <!-- Pagination controls here -->
         </div>
     </main>
-    <footer>
-        <p>&copy; 2024 Mango Farm App. All rights reserved.</p>
-    </footer>
+    <div id="footer"></div>
+    <script src="reminder.js"></script> <!-- Functionality specific to reminder interactions -->
+    <script src="include.js"></script> <!-- Script to include header and footer -->
 </body>
 </html>
