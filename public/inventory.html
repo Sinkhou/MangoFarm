@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mango Farm Management - Inventory</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="inventory.css">
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <input type="text" id="searchInput" onkeyup="searchInventory()" placeholder="Search for products...">
+
+    <ul>
+        <li><a href="mango_details.html">Mango</a></li>
+        <li><a href="pesticide_details.html">Pesticide</a></li>
+        <li><a href="fertilizer_details.html">Fertilizer</a></li>
+        <li><a href="tools_details.html">Tools</a></li>
+        <li><a href="equipment_details.html">Equipment</a></li>
+    </ul>
+</div>
+<div id="header"></div>
+<script>
+    // Load saved quantities from local storage
+    window.onload = function() {
+        loadQuantity('mango');
+        loadQuantity('pesticide');
+        loadQuantity('fertilizer');
+        loadQuantity('tools');
+        loadQuantity('equipment');
+    };
+
+    function changeQuantity(item, amount) {
+        let inputElement = document.getElementById(item);
+        let currentValue = parseInt(inputElement.value);
+        let newValue = currentValue + amount;
+        if (newValue >= 0) {
+            inputElement.value = newValue;
+            saveQuantity(item);
+        }
+    }
+
+    function saveQuantity(item) {
+        let inputElement = document.getElementById(item);
+        localStorage.setItem(item, inputElement.value);
+    }
+
+    function loadQuantity(item) {
+        let savedValue = localStorage.getItem(item);
+        if (savedValue !== null) {
+            document.getElementById(item).value = savedValue;
+        }
+    }
+
+    function searchInventory() {
+        let input, filter, container, items, item, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        container = document.querySelector(".container");
+        items = container.querySelectorAll("ul li");
+        for (i = 0; i < items.length; i++) {
+            item = items[i].getElementsByTagName("a")[0];
+            txtValue = item.textContent || item.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                items[i].style.display = "";
+            } else {
+                items[i].style.display = "none";
+            }
+        }
+    }
+</script>
+<script src="include.js"></script> <!-- Script to include header and footer -->
+<div id="footer"></div>
+
+</body>
+</html>

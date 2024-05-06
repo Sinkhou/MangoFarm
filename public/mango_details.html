@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="inventory.css">
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script>
+</head>
+<body>
+
+<div class="container">
+<div id="header"></div>
+
+    <input type="text" id="searchInput" onkeyup="searchInventory()" placeholder="Search for products...">
+
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>Alphonso</td>
+            <td><input type="number" id="alphonso" value="100" oninput="saveQuantity('alphonso')"></td>
+            <td>
+                <button onclick="changeQuantity('alphonso', -1)">-</button>
+                <button onclick="changeQuantity('alphonso', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Kesar</td>
+            <td><input type="number" id="kesar" value="50" oninput="saveQuantity('kesar')"></td>
+            <td>
+                <button onclick="changeQuantity('kesar', -1)">-</button>
+                <button onclick="changeQuantity('kesar', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Ataulfo</td>
+            <td><input type="number" id="ataulfo" value="30" oninput="saveQuantity('ataulfo')"></td>
+            <td>
+                <button onclick="changeQuantity('ataulfo', -1)">-</button>
+                <button onclick="changeQuantity('ataulfo', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Haden</td>
+            <td><input type="number" id="haden" value="20" oninput="saveQuantity('haden')"></td>
+            <td>
+                <button onclick="changeQuantity('haden', -1)">-</button>
+                <button onclick="changeQuantity('haden', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Tommy Atkins</td>
+            <td><input type="number" id="tommy_atkins" value="40" oninput="saveQuantity('tommy_atkins')"></td>
+            <td>
+                <button onclick="changeQuantity('tommy_atkins', -1)">-</button>
+                <button onclick="changeQuantity('tommy_atkins', 1)">+</button>
+            </td>
+        </tr>
+        <!-- 继续添加更多芒果品种 -->
+        <tr>
+            <td>Mallika</td>
+            <td><input type="number" id="mallika" value="60" oninput="saveQuantity('mallika')"></td>
+            <td>
+                <button onclick="changeQuantity('mallika', -1)">-</button>
+                <button onclick="changeQuantity('mallika', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Julie</td>
+            <td><input type="number" id="julie" value="25" oninput="saveQuantity('julie')"></td>
+            <td>
+                <button onclick="changeQuantity('julie', -1)">-</button>
+                <button onclick="changeQuantity('julie', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Manila</td>
+            <td><input type="number" id="manila" value="35" oninput="saveQuantity('manila')"></td>
+            <td>
+                <button onclick="changeQuantity('manila', -1)">-</button>
+                <button onclick="changeQuantity('manila', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Panama</td>
+            <td><input type="number" id="panama" value="45" oninput="saveQuantity('panama')"></td>
+            <td>
+                <button onclick="changeQuantity('panama', -1)">-</button>
+                <button onclick="changeQuantity('panama', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Amrapali</td>
+            <td><input type="number" id="amrapali" value="55" oninput="saveQuantity('amrapali')"></td>
+            <td>
+                <button onclick="changeQuantity('amrapali', -1)">-</button>
+                <button onclick="changeQuantity('amrapali', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Bailey's Marvel</td>
+            <td><input type="number" id="baileys_marvel" value="65" oninput="saveQuantity('baileys_marvel')"></td>
+            <td>
+                <button onclick="changeQuantity('baileys_marvel', -1)">-</button>
+                <button onclick="changeQuantity('baileys_marvel', 1)">+</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    // Load saved quantities from local storage
+    window.onload = function() {
+        loadQuantity('alphonso');
+        loadQuantity('kesar');
+        loadQuantity('ataulfo');
+        loadQuantity('haden');
+        loadQuantity('tommy_atkins');
+        loadQuantity('mallika');
+        loadQuantity('julie');
+        loadQuantity('manila');
+        loadQuantity('panama');
+        loadQuantity('amrapali');
+        loadQuantity('baileys_marvel');
+        // 加载更多芒果品种的数量
+    };
+
+    function changeQuantity(item, amount) {
+        let inputElement = document.getElementById(item);
+        let currentValue = parseInt(inputElement.value);
+        let newValue = currentValue + amount;
+        if (newValue >= 0) {
+            inputElement.value = newValue;
+            saveQuantity(item);
+        }
+    }
+
+    function saveQuantity(item) {
+        let inputElement = document.getElementById(item);
+        localStorage.setItem(item, inputElement.value);
+    }
+
+    function loadQuantity(item) {
+        let savedValue = localStorage.getItem(item);
+        if (savedValue !== null) {
+            document.getElementById(item).value = savedValue;
+        }
+    }
+
+    function searchInventory() {
+        let input, filter, container, items, item, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        container = document.querySelector(".container");
+        items = container.querySelectorAll("tr:not(:first-child)");
+        for (i = 0; i < items.length; i++) {
+            item = items[i].getElementsByTagName("td")[0];
+            txtValue = item.textContent || item.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                items[i].style.display = "";
+            } else {
+                items[i].style.display = "none";
+            }
+        }
+    }
+</script>
+<div id="footer"></div>
+<script src="include.js"></script> <!-- Script to include header and footer -->
+
+</body>
+</html>

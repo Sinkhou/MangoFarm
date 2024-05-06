@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="inventory.css">
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script>
+</head>
+<body>
+<div id="header"></div>
+<div class="container">
+    <input type="text" id="searchInput" onkeyup="searchInventory()" placeholder="Search for products...">
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>Nitrogen fertilizer</td>
+            <td><input type="number" id="nitrogen_fertilizer" value="100" oninput="saveQuantity('nitrogen_fertilizer')"></td>
+            <td>
+                <button onclick="changeQuantity('nitrogen_fertilizer', -1)">-</button>
+                <button onclick="changeQuantity('nitrogen_fertilizer', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Phosphorus fertilizer</td>
+            <td><input type="number" id="phosphorus_fertilizer" value="50" oninput="saveQuantity('phosphorus_fertilizer')"></td>
+            <td>
+                <button onclick="changeQuantity('phosphorus_fertilizer', -1)">-</button>
+                <button onclick="changeQuantity('phosphorus_fertilizer', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Potassium fertilizer</td>
+            <td><input type="number" id="potassium_fertilizer" value="30" oninput="saveQuantity('potassium_fertilizer')"></td>
+            <td>
+                <button onclick="changeQuantity('potassium_fertilizer', -1)">-</button>
+                <button onclick="changeQuantity('potassium_fertilizer', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>NPK fertilizer</td>
+            <td><input type="number" id="npk_fertilizer" value="20" oninput="saveQuantity('npk_fertilizer')"></td>
+            <td>
+                <button onclick="changeQuantity('npk_fertilizer', -1)">-</button>
+                <button onclick="changeQuantity('npk_fertilizer', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Urea</td>
+            <td><input type="number" id="urea" value="40" oninput="saveQuantity('urea')"></td>
+            <td>
+                <button onclick="changeQuantity('urea', -1)">-</button>
+                <button onclick="changeQuantity('urea', 1)">+</button>
+            </td>
+        </tr>
+        <!-- 继续添加更多化肥品种 -->
+        <tr>
+            <td>Ammonium sulfate</td>
+            <td><input type="number" id="ammonium_sulfate" value="60" oninput="saveQuantity('ammonium_sulfate')"></td>
+            <td>
+                <button onclick="changeQuantity('ammonium_sulfate', -1)">-</button>
+                <button onclick="changeQuantity('ammonium_sulfate', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Potassium nitrate</td>
+            <td><input type="number" id="potassium_nitrate" value="70" oninput="saveQuantity('potassium_nitrate')"></td>
+            <td>
+                <button onclick="changeQuantity('potassium_nitrate', -1)">-</button>
+                <button onclick="changeQuantity('potassium_nitrate', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Single superphosphate</td>
+            <td><input type="number" id="single_superphosphate" value="80" oninput="saveQuantity('single_superphosphate')"></td>
+            <td>
+                <button onclick="changeQuantity('single_superphosphate', -1)">-</button>
+                <button onclick="changeQuantity('single_superphosphate', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Muriate of potash</td>
+            <td><input type="number" id="muriate_of_potash" value="90" oninput="saveQuantity('muriate_of_potash')"></td>
+            <td>
+                <button onclick="changeQuantity('muriate_of_potash', -1)">-</button>
+                <button onclick="changeQuantity('muriate_of_potash', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Nitric acid</td>
+            <td><input type="number" id="nitric_acid" value="100" oninput="saveQuantity('nitric_acid')"></td>
+            <td>
+                <button onclick="changeQuantity('nitric_acid', -1)">-</button>
+                <button onclick="changeQuantity('nitric_acid', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Calcium ammonium nitrate</td>
+            <td><input type="number" id="calcium_ammonium_nitrate" value="110" oninput="saveQuantity('calcium_ammonium_nitrate')"></td>
+            <td>
+                <button onclick="changeQuantity('calcium_ammonium_nitrate', -1)">-</button>
+                <button onclick="changeQuantity('calcium_ammonium_nitrate', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Triple superphosphate</td>
+            <td><input type="number" id="triple_superphosphate" value="120" oninput="saveQuantity('triple_superphosphate')"></td>
+            <td>
+                <button onclick="changeQuantity('triple_superphosphate', -1)">-</button>
+                <button onclick="changeQuantity('triple_superphosphate', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Potassium chloride</td>
+            <td><input type="number" id="potassium_chloride" value="130" oninput="saveQuantity('potassium_chloride')"></td>
+            <td>
+                <button onclick="changeQuantity('potassium_chloride', -1)">-</button>
+                <button onclick="changeQuantity('potassium_chloride', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Ammonium nitrate</td>
+            <td><input type="number" id="ammonium_nitrate" value="140" oninput="saveQuantity('ammonium_nitrate')"></td>
+            <td>
+                <button onclick="changeQuantity('ammonium_nitrate', -1)">-</button>
+                <button onclick="changeQuantity('ammonium_nitrate', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Ammonium phosphate</td>
+            <td><input type="number" id="ammonium_phosphate" value="150" oninput="saveQuantity('ammonium_phosphate')"></td>
+            <td>
+                <button onclick="changeQuantity('ammonium_phosphate', -1)">-</button>
+                <button onclick="changeQuantity('ammonium_phosphate', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Sulfate of potash magnesia</td>
+            <td><input type="number" id="sulfate_of_potash_magnesia" value="160" oninput="saveQuantity('sulfate_of_potash_magnesia')"></td>
+            <td>
+                <button onclick="changeQuantity('sulfate_of_potash_magnesia', -1)">-</button>
+                <button onclick="changeQuantity('sulfate_of_potash_magnesia', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Ammonium sulfate nitrate</td>
+            <td><input type="number" id="ammonium_sulfate_nitrate" value="170" oninput="saveQuantity('ammonium_sulfate_nitrate')"></td>
+            <td>
+                <button onclick="changeQuantity('ammonium_sulfate_nitrate', -1)">-</button>
+                <button onclick="changeQuantity('ammonium_sulfate_nitrate', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Ammonium chloride</td>
+            <td><input type="number" id="ammonium_chloride" value="180" oninput="saveQuantity('ammonium_chloride')"></td>
+            <td>
+                <button onclick="changeQuantity('ammonium_chloride', -1)">-</button>
+                <button onclick="changeQuantity('ammonium_chloride', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Calcium nitrate</td>
+            <td><input type="number" id="calcium_nitrate" value="190" oninput="saveQuantity('calcium_nitrate')"></td>
+            <td>
+                <button onclick="changeQuantity('calcium_nitrate', -1)">-</button>
+                <button onclick="changeQuantity('calcium_nitrate', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Urea-ammonium nitrate</td>
+            <td><input type="number" id="urea_ammonium_nitrate" value="200" oninput="saveQuantity('urea_ammonium_nitrate')"></td>
+            <td>
+                <button onclick="changeQuantity('urea_ammonium_nitrate', -1)">-</button>
+                <button onclick="changeQuantity('urea_ammonium_nitrate', 1)">+</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    // Load saved quantities from local storage
+    window.onload = function() {
+        loadQuantity('nitrogen_fertilizer');
+        loadQuantity('phosphorus_fertilizer');
+        loadQuantity('potassium_fertilizer');
+        loadQuantity('npk_fertilizer');
+        loadQuantity('urea');
+        loadQuantity('ammonium_sulfate');
+        loadQuantity('potassium_nitrate');
+        loadQuantity('single_superphosphate');
+        loadQuantity('muriate_of_potash');
+        loadQuantity('nitric_acid');
+        loadQuantity('calcium_ammonium_nitrate');
+        loadQuantity('triple_superphosphate');
+        loadQuantity('potassium_chloride');
+        loadQuantity('ammonium_nitrate');
+        loadQuantity('ammonium_phosphate');
+        loadQuantity('sulfate_of_potash_magnesia');
+        loadQuantity('ammonium_sulfate_nitrate');
+        loadQuantity('ammonium_chloride');
+        loadQuantity('calcium_nitrate');
+        loadQuantity('urea_ammonium_nitrate');
+        // 加载更多化肥品种的数量
+    };
+
+    function changeQuantity(item, amount) {
+        let inputElement = document.getElementById(item);
+        let currentValue = parseInt(inputElement.value);
+        let newValue = currentValue + amount;
+        if (newValue >= 0) {
+            inputElement.value = newValue;
+            saveQuantity(item);
+        }
+    }
+
+    function saveQuantity(item) {
+        let inputElement = document.getElementById(item);
+        localStorage.setItem(item, inputElement.value);
+    }
+
+    function loadQuantity(item) {
+        let savedValue = localStorage.getItem(item);
+        if (savedValue !== null) {
+            document.getElementById(item).value = savedValue;
+        }
+    }
+
+    function searchInventory() {
+        let input, filter, container, items, item, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        container = document.querySelector(".container");
+        items = container.querySelectorAll("tr:not(:first-child)");
+        for (i = 0; i < items.length; i++) {
+            item = items[i].getElementsByTagName("td")[0];
+            txtValue = item.textContent || item.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                items[i].style.display = "";
+            } else {
+                items[i].style.display = "none";
+            }
+        }
+    }
+</script>
+<div id="footer"></div>
+<script src="include.js"></script> <!-- Script to include header and footer -->
+</body>
+</html>

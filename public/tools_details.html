@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="inventory.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script>
+</head>
+<body>
+
+<div class="container">
+<div id="header"></div>
+
+    <input type="text" id="searchInput" onkeyup="searchInventory()" placeholder="Search for products...">
+
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>Shovel</td>
+            <td><input type="number" id="shovel" value="100" oninput="saveQuantity('shovel')"></td>
+            <td>
+                <button onclick="changeQuantity('shovel', -1)">-</button>
+                <button onclick="changeQuantity('shovel', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Rake</td>
+            <td><input type="number" id="rake" value="50" oninput="saveQuantity('rake')"></td>
+            <td>
+                <button onclick="changeQuantity('rake', -1)">-</button>
+                <button onclick="changeQuantity('rake', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Pruning Shears</td>
+            <td><input type="number" id="pruning_shears" value="30" oninput="saveQuantity('pruning_shears')"></td>
+            <td>
+                <button onclick="changeQuantity('pruning_shears', -1)">-</button>
+                <button onclick="changeQuantity('pruning_shears', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Wheelbarrow</td>
+            <td><input type="number" id="wheelbarrow" value="20" oninput="saveQuantity('wheelbarrow')"></td>
+            <td>
+                <button onclick="changeQuantity('wheelbarrow', -1)">-</button>
+                <button onclick="changeQuantity('wheelbarrow', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Hoe</td>
+            <td><input type="number" id="hoe" value="40" oninput="saveQuantity('hoe')"></td>
+            <td>
+                <button onclick="changeQuantity('hoe', -1)">-</button>
+                <button onclick="changeQuantity('hoe', 1)">+</button>
+            </td>
+        </tr>
+        <!-- 继续添加更多农具品种 -->
+        <tr>
+            <td>Garden Fork</td>
+            <td><input type="number" id="garden_fork" value="60" oninput="saveQuantity('garden_fork')"></td>
+            <td>
+                <button onclick="changeQuantity('garden_fork', -1)">-</button>
+                <button onclick="changeQuantity('garden_fork', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Hand Trowel</td>
+            <td><input type="number" id="hand_trowel" value="70" oninput="saveQuantity('hand_trowel')"></td>
+            <td>
+                <button onclick="changeQuantity('hand_trowel', -1)">-</button>
+                <button onclick="changeQuantity('hand_trowel', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Scythe</td>
+            <td><input type="number" id="scythe" value="80" oninput="saveQuantity('scythe')"></td>
+            <td>
+                <button onclick="changeQuantity('scythe', -1)">-</button>
+                <button onclick="changeQuantity('scythe', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Pruning Saw</td>
+            <td><input type="number" id="pruning_saw" value="90" oninput="saveQuantity('pruning_saw')"></td>
+            <td>
+                <button onclick="changeQuantity('pruning_saw', -1)">-</button>
+                <button onclick="changeQuantity('pruning_saw', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Lopping Shears</td>
+            <td><input type="number" id="lopping_shears" value="100" oninput="saveQuantity('lopping_shears')"></td>
+            <td>
+                <button onclick="changeQuantity('lopping_shears', -1)">-</button>
+                <button onclick="changeQuantity('lopping_shears', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Sickle</td>
+            <td><input type="number" id="sickle" value="110" oninput="saveQuantity('sickle')"></td>
+            <td>
+                <button onclick="changeQuantity('sickle', -1)">-</button>
+                <button onclick="changeQuantity('sickle', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Secateurs</td>
+            <td><input type="number" id="secateurs" value="120" oninput="saveQuantity('secateurs')"></td>
+            <td>
+                <button onclick="changeQuantity('secateurs', -1)">-</button>
+                <button onclick="changeQuantity('secateurs', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Leaf Rake</td>
+            <td><input type="number" id="leaf_rake" value="130" oninput="saveQuantity('leaf_rake')"></td>
+            <td>
+                <button onclick="changeQuantity('leaf_rake', -1)">-</button>
+                <button onclick="changeQuantity('leaf_rake', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Garden Hoe</td>
+            <td><input type="number" id="garden_hoe" value="140" oninput="saveQuantity('garden_hoe')"></td>
+            <td>
+                <button onclick="changeQuantity('garden_hoe', -1)">-</button>
+                <button onclick="changeQuantity('garden_hoe', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Hand Fork</td>
+            <td><input type="number" id="hand_fork" value="150" oninput="saveQuantity('hand_fork')"></td>
+            <td>
+                <button onclick="changeQuantity('hand_fork', -1)">-</button>
+                <button onclick="changeQuantity('hand_fork', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Hedge Trimmer</td>
+            <td><input type="number" id="hedge_trimmer" value="160" oninput="saveQuantity('hedge_trimmer')"></td>
+            <td>
+                <button onclick="changeQuantity('hedge_trimmer', -1)">-</button>
+                <button onclick="changeQuantity('hedge_trimmer', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Bypass Pruners</td>
+            <td><input type="number" id="bypass_pruners" value="170" oninput="saveQuantity('bypass_pruners')"></td>
+            <td>
+                <button onclick="changeQuantity('bypass_pruners', -1)">-</button>
+                <button onclick="changeQuantity('bypass_pruners', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Grafting Knife</td>
+            <td><input type="number" id="grafting_knife" value="180" oninput="saveQuantity('grafting_knife')"></td>
+            <td>
+                <button onclick="changeQuantity('grafting_knife', -1)">-</button>
+                <button onclick="changeQuantity('grafting_knife', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Spade</td>
+            <td><input type="number" id="spade" value="190" oninput="saveQuantity('spade')"></td>
+            <td>
+                <button onclick="changeQuantity('spade', -1)">-</button>
+                <button onclick="changeQuantity('spade', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Plough</td>
+            <td><input type="number" id="plough" value="200" oninput="saveQuantity('plough')"></td>
+            <td>
+                <button onclick="changeQuantity('plough', -1)">-</button>
+                <button onclick="changeQuantity('plough', 1)">+</button>
+            </td>
+        </tr>
+        <!-- 继续添加更多农具品种 -->
+    </table>
+</div>
+
+<script>
+    // Load saved quantities from local storage
+    window.onload = function() {
+        loadQuantity('shovel');
+        loadQuantity('rake');
+        loadQuantity('pruning_shears');
+        loadQuantity('wheelbarrow');
+        loadQuantity('hoe');
+        // 加载更多农具品种的数量
+    };
+
+    function changeQuantity(item, amount) {
+        let inputElement = document.getElementById(item);
+        let currentValue = parseInt(inputElement.value);
+        let newValue = currentValue + amount;
+        if (newValue >= 0) {
+            inputElement.value = newValue;
+            saveQuantity(item);
+        }
+    }
+
+    function saveQuantity(item) {
+        let inputElement = document.getElementById(item);
+        localStorage.setItem(item, inputElement.value);
+    }
+
+    function loadQuantity(item) {
+        let savedValue = localStorage.getItem(item);
+        if (savedValue !== null) {
+            document.getElementById(item).value = savedValue;
+        }
+    }
+
+    function searchInventory() {
+        let input, filter, container, items, item, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        container = document.querySelector(".container");
+        items = container.querySelectorAll("tr:not(:first-child)");
+        for (i = 0; i < items.length; i++) {
+            item = items[i].getElementsByTagName("td")[0];
+            txtValue = item.textContent || item.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                items[i].style.display = "";
+            } else {
+                items[i].style.display = "none";
+            }
+        }
+    }
+</script>
+<div id="footer"></div>
+<script src="include.js"></script> <!-- Script to include header and footer -->
+</body>
+</html>

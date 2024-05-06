@@ -4,7 +4,7 @@ sgMail.setApiKey('SG.tUkMRtMmReWiFgY7cYEOJA.I4-cmx4JrzSyFV31Rw7K629twkhsUNnV2Llq
 function sendEmail(to, subject, text) {
     const msg = {
         to: to,
-        from: 'sinkhou89@gmail.com', // 使用您在SendGrid中设置的发件人电子邮件
+        from: 'sinkhou89@gmail.com',
         subject: subject,
         text: text,
     };

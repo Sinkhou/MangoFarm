@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="inventory.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script>
+</head>
+<body>
+
+<div class="container">
+<div id="header"></div>
+
+    <input type="text" id="searchInput" onkeyup="searchInventory()" placeholder="Search for products...">
+
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>Insecticide A</td>
+            <td><input type="number" id="insecticide_a" value="100" oninput="saveQuantity('insecticide_a')"></td>
+            <td>
+                <button onclick="changeQuantity('insecticide_a', -1)">-</button>
+                <button onclick="changeQuantity('insecticide_a', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Insecticide B</td>
+            <td><input type="number" id="insecticide_b" value="50" oninput="saveQuantity('insecticide_b')"></td>
+            <td>
+                <button onclick="changeQuantity('insecticide_b', -1)">-</button>
+                <button onclick="changeQuantity('insecticide_b', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Fungicide A</td>
+            <td><input type="number" id="fungicide_a" value="30" oninput="saveQuantity('fungicide_a')"></td>
+            <td>
+                <button onclick="changeQuantity('fungicide_a', -1)">-</button>
+                <button onclick="changeQuantity('fungicide_a', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Fungicide B</td>
+            <td><input type="number" id="fungicide_b" value="20" oninput="saveQuantity('fungicide_b')"></td>
+            <td>
+                <button onclick="changeQuantity('fungicide_b', -1)">-</button>
+                <button onclick="changeQuantity('fungicide_b', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Herbicide A</td>
+            <td><input type="number" id="herbicide_a" value="40" oninput="saveQuantity('herbicide_a')"></td>
+            <td>
+                <button onclick="changeQuantity('herbicide_a', -1)">-</button>
+                <button onclick="changeQuantity('herbicide_a', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Herbicide B</td>
+            <td><input type="number" id="herbicide_b" value="60" oninput="saveQuantity('herbicide_b')"></td>
+            <td>
+                <button onclick="changeQuantity('herbicide_b', -1)">-</button>
+                <button onclick="changeQuantity('herbicide_b', 1)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Organic Pesticide</td>
+            <td><input type="number" id="organic_pesticide" value="70" oninput="saveQuantity('organic_pesticide')"></td>
+            <td>
+                <button onclick="changeQuantity('organic_pesticide', -1)">-</button>
+                <button onclick="changeQuantity('organic_pesticide', 1)">+</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    // Load saved quantities from local storage
+    window.onload = function() {
+        loadQuantity('insecticide_a');
+        loadQuantity('insecticide_b');
+        loadQuantity('fungicide_a');
+        loadQuantity('fungicide_b');
+        loadQuantity('herbicide_a');
+        loadQuantity('herbicide_b');
+        loadQuantity('organic_pesticide');
+        // 加载更多农药品种的数量
+    };
+
+    function changeQuantity(item, amount) {
+        let inputElement = document.getElementById(item);
+        let currentValue = parseInt(inputElement.value);
+        let newValue = currentValue + amount;
+        if (newValue >= 0) {
+            inputElement.value = newValue;
+            saveQuantity(item);
+        }
+    }
+
+    function saveQuantity(item) {
+        let inputElement = document.getElementById(item);
+        localStorage.setItem(item, inputElement.value);
+    }
+
+    function loadQuantity(item) {
+        let savedValue = localStorage.getItem(item);
+        if (savedValue !== null) {
+            document.getElementById(item).value = savedValue;
+        }
+    }
+
+    function searchInventory() {
+        let input, filter, container, items, item, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        container = document.querySelector(".container");
+        items = container.querySelectorAll("tr:not(:first-child)");
+        for (i = 0; i < items.length; i++) {
+            item = items[i].getElementsByTagName("td")[0];
+            txtValue = item.textContent || item.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                items[i].style.display = "";
+            } else {
+                items[i].style.display = "none";
+            }
+        }
+    }
+</script>
+<div id="footer"></div>
+<script src="include.js"></script> <!-- Script to include header and footer -->
+</body>
+</html>
