@@ -11,248 +11,321 @@
     <script src="firebase-config.js"></script>
 </head>
 <body>
-    <div id="header"></div>
+
 <div class="container">
+<div id="header"></div>
+
     <input type="text" id="searchInput" onkeyup="searchInventory()" placeholder="Search for products...">
+
     <table>
-        <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th></th>
-        </tr>
         <tr>
             <td>Tractor</td>
             <td><input type="number" id="tractor" value="10" oninput="saveQuantity('tractor')"></td>
+            <td>Quantity</td>
             <td>
                 <button onclick="changeQuantity('tractor', -1)">-</button>
                 <button onclick="changeQuantity('tractor', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Tractor')">Delete</button>
             </td>
         </tr>
         <tr>
             <td>Harvester</td>
             <td><input type="number" id="harvester" value="5" oninput="saveQuantity('harvester')"></td>
+            <td>Quantity</td>
             <td>
                 <button onclick="changeQuantity('harvester', -1)">-</button>
                 <button onclick="changeQuantity('harvester', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Harvester')">Delete</button>
             </td>
         </tr>
         <tr>
             <td>Sprayer</td>
             <td><input type="number" id="sprayer" value="8" oninput="saveQuantity('sprayer')"></td>
+            <td>Quantity</td>
             <td>
                 <button onclick="changeQuantity('sprayer', -1)">-</button>
                 <button onclick="changeQuantity('sprayer', 1)">+</button>
             </td>
-        </tr>
-        <tr>
-            <td>Sorting Machine</td>
-            <td><input type="number" id="sorting_machine" value="3" oninput="saveQuantity('sorting_machine')"></td>
             <td>
-                <button onclick="changeQuantity('sorting_machine', -1)">-</button>
-                <button onclick="changeQuantity('sorting_machine', 1)">+</button>
+                <button onclick="deleteProduct('Sprayer')">Delete</button>
             </td>
         </tr>
-        <tr>
-            <td>Pruning Machine</td>
-            <td><input type="number" id="pruning_machine" value="6" oninput="saveQuantity('pruning_machine')"></td>
-            <td>
-                <button onclick="changeQuantity('pruning_machine', -1)">-</button>
-                <button onclick="changeQuantity('pruning_machine', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Harvesting Conveyor</td>
-            <td><input type="number" id="harvesting_conveyor" value="4" oninput="saveQuantity('harvesting_conveyor')"></td>
-            <td>
-                <button onclick="changeQuantity('harvesting_conveyor', -1)">-</button>
-                <button onclick="changeQuantity('harvesting_conveyor', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Leaf Blower</td>
-            <td><input type="number" id="leaf_blower" value="7" oninput="saveQuantity('leaf_blower')"></td>
-            <td>
-                <button onclick="changeQuantity('leaf_blower', -1)">-</button>
-                <button onclick="changeQuantity('leaf_blower', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Fruit Picker</td>
-            <td><input type="number" id="fruit_picker" value="9" oninput="saveQuantity('fruit_picker')"></td>
-            <td>
-                <button onclick="changeQuantity('fruit_picker', -1)">-</button>
-                <button onclick="changeQuantity('fruit_picker', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Packing Machine</td>
-            <td><input type="number" id="packing_machine" value="12" oninput="saveQuantity('packing_machine')"></td>
-            <td>
-                <button onclick="changeQuantity('packing_machine', -1)">-</button>
-                <button onclick="changeQuantity('packing_machine', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Heat Sealer</td>
-            <td><input type="number" id="heat_sealer" value="5" oninput="saveQuantity('heat_sealer')"></td>
-            <td>
-                <button onclick="changeQuantity('heat_sealer', -1)">-</button>
-                <button onclick="changeQuantity('heat_sealer', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Labeling Machine</td>
-            <td><input type="number" id="labeling_machine" value="7" oninput="saveQuantity('labeling_machine')"></td>
-            <td>
-                <button onclick="changeQuantity('labeling_machine', -1)">-</button>
-                <button onclick="changeQuantity('labeling_machine', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Washing Machine</td>
-            <td><input type="number" id="washing_machine" value="8" oninput="saveQuantity('washing_machine')"></td>
-            <td>
-                <button onclick="changeQuantity('washing_machine', -1)">-</button>
-                <button onclick="changeQuantity('washing_machine', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Dehydrator</td>
-            <td><input type="number" id="dehydrator" value="4" oninput="saveQuantity('dehydrator')"></td>
-            <td>
-                <button onclick="changeQuantity('dehydrator', -1)">-</button>
-                <button onclick="changeQuantity('dehydrator', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Peeling Machine</td>
-            <td><input type="number" id="peeling_machine" value="6" oninput="saveQuantity('peeling_machine')"></td>
-            <td>
-                <button onclick="changeQuantity('peeling_machine', -1)">-</button>
-                <button onclick="changeQuantity('peeling_machine', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Juicing Machine</td>
-            <td><input type="number" id="juicing_machine" value="10" oninput="saveQuantity('juicing_machine')"></td>
-            <td>
-                <button onclick="changeQuantity('juicing_machine', -1)">-</button>
-                <button onclick="changeQuantity('juicing_machine', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Freezer</td>
-            <td><input type="number" id="freezer" value="3" oninput="saveQuantity('freezer')"></td>
-            <td>
-                <button onclick="changeQuantity('freezer', -1)">-</button>
-                <button onclick="changeQuantity('freezer', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Storage Silo</td>
-            <td><input type="number" id="storage_silo" value="5" oninput="saveQuantity('storage_silo')"></td>
-            <td>
-                <button onclick="changeQuantity('storage_silo', -1)">-</button>
-                <button onclick="changeQuantity('storage_silo', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Transportation Cart</td>
-            <td><input type="number" id="transportation_cart" value="10" oninput="saveQuantity('transportation_cart')"></td>
-            <td>
-                <button onclick="changeQuantity('transportation_cart', -1)">-</button>
-                <button onclick="changeQuantity('transportation_cart', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Grading Machine</td>
-            <td><input type="number" id="grading_machine" value="6" oninput="saveQuantity('grading_machine')"></td>
-            <td>
-                <button onclick="changeQuantity('grading_machine', -1)">-</button>
-                <button onclick="changeQuantity('grading_machine', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Transport Truck</td>
-            <td><input type="number" id="transport_truck" value="8" oninput="saveQuantity('transport_truck')"></td>
-            <td>
-                <button onclick="changeQuantity('transport_truck', -1)">-</button>
-                <button onclick="changeQuantity('transport_truck', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Seed Planter</td>
-            <td><input type="number" id="seed_planter" value="5" oninput="saveQuantity('seed_planter')"></td>
-            <td>
-                <button onclick="changeQuantity('seed_planter', -1)">-</button>
-                <button onclick="changeQuantity('seed_planter', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Cooling System</td>
-            <td><input type="number" id="cooling_system" value="7" oninput="saveQuantity('cooling_system')"></td>
-            <td>
-                <button onclick="changeQuantity('cooling_system', -1)">-</button>
-                <button onclick="changeQuantity('cooling_system', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Water Pump</td>
-            <td><input type="number" id="water_pump" value="8" oninput="saveQuantity('water_pump')"></td>
-            <td>
-                <button onclick="changeQuantity('water_pump', -1)">-</button>
-                <button onclick="changeQuantity('water_pump', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Drying Rack</td>
-            <td><input type="number" id="drying_rack" value="6" oninput="saveQuantity('drying_rack')"></td>
-            <td>
-                <button onclick="changeQuantity('drying_rack', -1)">-</button>
-                <button onclick="changeQuantity('drying_rack', 1)">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>UV Sterilizer</td>
-            <td><input type="number" id="uv_sterilizer" value="3" oninput="saveQuantity('uv_sterilizer')"></td>
-            <td>
-                <button onclick="changeQuantity('uv_sterilizer', -1)">-</button>
-                <button onclick="changeQuantity('uv_sterilizer', 1)">+</button>
-            </td>
-        </tr>
+            <tr>
+                <td>Dehydrator</td>
+                <td><input type="number" id="dehydrator" value="4" oninput="saveQuantity('dehydrator')"></td>
+                <td>Quantity</td>
+                <td>
+                    <button onclick="changeQuantity('dehydrator', -1)">-</button>
+                    <button onclick="changeQuantity('dehydrator', 1)">+</button>
+                </td>
+                <td>
+                    <button onclick="deleteProduct('Dehydrator')">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Freezer</td>
+                <td><input type="number" id="freezer" value="3" oninput="saveQuantity('freezer')"></td>
+                <td>Quantity</td>
+                <td>
+                    <button onclick="changeQuantity('freezer', -1)">-</button>
+                    <button onclick="changeQuantity('freezer', 1)">+</button>
+                </td>
+                <td>
+                    <button onclick="deleteProduct('Freezer')">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Storage</td>
+                <td><input type="number" id="storage_silo" value="5" oninput="saveQuantity('storage_silo')"></td>
+                <td>Volume</td>
+                <td>
+                    <button onclick="changeQuantity('storage_silo', -1)">-</button>
+                    <button onclick="changeQuantity('storage_silo', 1)">+</button>
+                </td>
+                <td>
+                    <button onclick="deleteProduct('Storage Silo')">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Cart</td>
+                <td><input type="number" id="transportation_cart" value="10" oninput="saveQuantity('transportation_cart')"></td>
+                <td>Quantity</td>
+                <td>
+                    <button onclick="changeQuantity('transportation_cart', -1)">-</button>
+                    <button onclick="changeQuantity('transportation_cart', 1)">+</button>
+                </td>
+                <td>
+                    <button onclick="deleteProduct('Transportation Cart')">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Truck</td>
+                <td><input type="number" id="transport_truck" value="8" oninput="saveQuantity('transport_truck')"></td>
+                <td>Quantity</td>
+                <td>
+                    <button onclick="changeQuantity('transport_truck', -1)">-</button>
+                    <button onclick="changeQuantity('transport_truck', 1)">+</button>
+                </td>
+                <td>
+                    <button onclick="deleteProduct('Transport Truck')">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Planter</td>
+                <td><input type="number" id="seed_planter" value="5" oninput="saveQuantity('seed_planter')"></td>
+                <td>Quantity</td>
+                <td>
+                    <button onclick="changeQuantity('seed_planter', -1)">-</button>
+                    <button onclick="changeQuantity('seed_planter', 1)">+</button>
+                </td>
+                <td>
+                    <button onclick="deleteProduct('Seed Planter')">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Cooling</td>
+                <td><input type="number" id="cooling_system" value="7" oninput="saveQuantity('cooling_system')"></td>
+                <td>kg</td>
+                <td>
+                    <button onclick="changeQuantity('cooling_system', -1)">-</button>
+                    <button onclick="changeQuantity('cooling_system', 1)">+</button>
+                </td>
+                <td>
+                    <button onclick="deleteProduct('Cooling System')">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Pump</td>
+                <td><input type="number" id="water_pump" value="8" oninput="saveQuantity('water_pump')"></td>
+                <td>Quantity</td>
+                <td>
+                    <button onclick="changeQuantity('water_pump', -1)">-</button>
+                    <button onclick="changeQuantity('water_pump', 1)">+</button>
+                </td>
+                <td>
+                    <button onclick="deleteProduct('Water Pump')">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Sterilizer</td>
+                <td><input type="number" id="uv_sterilizer" value="3" oninput="saveQuantity('uv_sterilizer')"></td>
+                <td>Quantity</td>
+                <td>
+                    <button onclick="changeQuantity('uv_sterilizer', -1)">-</button>
+                    <button onclick="changeQuantity('uv_sterilizer', 1)">+</button>
+                </td>
+                <td>
+                    <button onclick="deleteProduct('UV Sterilizer')">Delete</button>
+                </td>
+            </tr>
     </table>
+
+    <div id="newProductSection">
+        <input type="text" id="newProduct" placeholder="Enter new product name">
+        <input type="text" id="newUnit" placeholder="Enter unit">
+        <button onclick="addNewProduct()">Add Product</button>
+    </div>
+
+    <div class="buttons">
+        <a href="inventory.html">Back to Inventory</a>
+        <a href="dashboard.html">Back to Dashboard</a>
+    </div>
+
 </div>
 
 <script>
-    // Load saved quantities from local storage
+    // Load existing products and quantities from local storage
     window.onload = function() {
-        loadQuantity('tractor');
-        loadQuantity('harvester');
-        loadQuantity('sprayer');
-        loadQuantity('sorting_machine');
-        loadQuantity('pruning_machine');
-        loadQuantity('harvesting_conveyor');
-        loadQuantity('leaf_blower');
-        loadQuantity('fruit_picker');
-        loadQuantity('packing_machine');
-        loadQuantity('heat_sealer');
-        loadQuantity('labeling_machine');
-        loadQuantity('washing_machine');
-        loadQuantity('dehydrator');
-        loadQuantity('peeling_machine');
-        loadQuantity('juicing_machine');
-        loadQuantity('freezer');
-        loadQuantity('storage_silo');
-        loadQuantity('transportation_cart');
-        loadQuantity('grading_machine');
-        loadQuantity('transport_truck');
-        loadQuantity('seed_planter');
-        loadQuantity('cooling_system');
-        loadQuantity('water_pump');
-        loadQuantity('drying_rack');
-        loadQuantity('uv_sterilizer');
-        // 加载更多设备品种的数量
+        loadExistingProducts();
     };
+
+    function loadExistingProducts() {
+        let existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+        let table = document.querySelector("table");
+        existingProducts.forEach(function(product) {
+            let newRow = document.createElement("tr");
+
+            let productNameCell = document.createElement("td");
+            productNameCell.textContent = product.name;
+            newRow.appendChild(productNameCell);
+
+            let quantityCell = document.createElement("td");
+            let quantityInput = document.createElement("input");
+            quantityInput.type = "number";
+            quantityInput.value = product.quantity || "0";
+            quantityInput.id = product.name.toLowerCase().replace(/\s+/g, '_');
+            quantityInput.oninput = function() {
+                saveQuantity(this.id);
+            };
+            quantityCell.appendChild(quantityInput);
+            newRow.appendChild(quantityCell);
+
+            let unitCell = document.createElement("td");
+            unitCell.textContent = product.unit || "";
+            newRow.appendChild(unitCell);
+
+            let buttonCell = document.createElement("td");
+            let minusButton = document.createElement("button");
+            minusButton.textContent = "-";
+            minusButton.onclick = function() {
+                changeQuantity(quantityInput.id, -1);
+            };
+            buttonCell.appendChild(minusButton);
+            let plusButton = document.createElement("button");
+            plusButton.textContent = "+";
+            plusButton.onclick = function() {
+                changeQuantity(quantityInput.id, 1);
+            };
+            buttonCell.appendChild(plusButton);
+            newRow.appendChild(buttonCell);
+
+            let deleteCell = document.createElement("td");
+            let deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.onclick = function() {
+                deleteProduct(product.name);
+            };
+            deleteCell.appendChild(deleteButton);
+            newRow.appendChild(deleteCell);
+
+            table.appendChild(newRow);
+        });
+    }
+
+    function deleteProduct(productName) {
+        if (confirm("Are you sure you want to delete " + productName + "?")) {
+            let existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+            let updatedProducts = existingProducts.filter(function(product) {
+                return product.name !== productName;
+            });
+            localStorage.setItem('products', JSON.stringify(updatedProducts));
+            location.reload(); // Reload the page to reflect the changes
+        }
+    }
+
+    function addNewProduct() {
+        let newProductName = document.getElementById('newProduct').value.trim();
+        let newUnit = document.getElementById('newUnit').value.trim();
+        if (newProductName === "" || newUnit === "") {
+            alert("Please enter a valid product name and unit.");
+            return;
+        }
+
+        let existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+        let existingProductNames = existingProducts.map(function(product) {
+            return product.name.toLowerCase();
+        });
+
+        if (existingProductNames.includes(newProductName.toLowerCase())) {
+            alert("Product already exists.");
+            return;
+        }
+
+        let newProduct = {
+            name: newProductName,
+            quantity: 0,
+            unit: newUnit
+        };
+
+        existingProducts.push(newProduct);
+        localStorage.setItem('products', JSON.stringify(existingProducts));
+
+        let table = document.querySelector("table");
+        let newRow = document.createElement("tr");
+
+        let productNameCell = document.createElement("td");
+        productNameCell.textContent = newProductName;
+        newRow.appendChild(productNameCell);
+
+        let quantityCell = document.createElement("td");
+        let quantityInput = document.createElement("input");
+        quantityInput.type = "number";
+        quantityInput.value = "0";
+        quantityInput.id = newProductName.toLowerCase().replace(/\s+/g, '_');
+        quantityInput.oninput = function() {
+            saveQuantity(this.id);
+        };
+        quantityCell.appendChild(quantityInput);
+        newRow.appendChild(quantityCell);
+
+        let unitCell = document.createElement("td");
+        unitCell.textContent = newUnit;
+        newRow.appendChild(unitCell);
+
+        let buttonCell = document.createElement("td");
+        let minusButton = document.createElement("button");
+        minusButton.textContent = "-";
+        minusButton.onclick = function() {
+            changeQuantity(quantityInput.id, -1);
+        };
+        buttonCell.appendChild(minusButton);
+        let plusButton = document.createElement("button");
+        plusButton.textContent = "+";
+        plusButton.onclick = function() {
+            changeQuantity(quantityInput.id, 1);
+        };
+        buttonCell.appendChild(plusButton);
+        newRow.appendChild(buttonCell);
+
+        let deleteCell = document.createElement("td");
+        let deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = function() {
+            deleteProduct(newProductName);
+        };
+        deleteCell.appendChild(deleteButton);
+        newRow.appendChild(deleteCell);
+
+        table.appendChild(newRow);
+
+        // Reset input fields
+        document.getElementById('newProduct').value = "";
+        document.getElementById('newUnit').value = "";
+    }
 
     function changeQuantity(item, amount) {
         let inputElement = document.getElementById(item);
@@ -266,13 +339,13 @@
 
     function saveQuantity(item) {
         let inputElement = document.getElementById(item);
-        localStorage.setItem(item, inputElement.value);
-    }
-
-    function loadQuantity(item) {
-        let savedValue = localStorage.getItem(item);
-        if (savedValue !== null) {
-            document.getElementById(item).value = savedValue;
+        let existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+        let existingProduct = existingProducts.find(function(product) {
+            return product.name.toLowerCase() === item.replace('_', ' ').toLowerCase();
+        });
+        if (existingProduct) {
+            existingProduct.quantity = parseInt(inputElement.value);
+            localStorage.setItem('products', JSON.stringify(existingProducts));
         }
     }
 
@@ -295,5 +368,6 @@
 </script>
 <div id="footer"></div>
 <script src="include.js"></script> <!-- Script to include header and footer -->
+
 </body>
 </html>

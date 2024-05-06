@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="inventory.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="inventory.css">
     <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
@@ -19,185 +19,397 @@
 
     <table>
         <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th></th>
-        </tr>
-        <tr>
             <td>Shovel</td>
             <td><input type="number" id="shovel" value="100" oninput="saveQuantity('shovel')"></td>
+            <td>Quantity</td>
             <td>
                 <button onclick="changeQuantity('shovel', -1)">-</button>
                 <button onclick="changeQuantity('shovel', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Shovel')">Delete</button>
             </td>
         </tr>
         <tr>
             <td>Rake</td>
             <td><input type="number" id="rake" value="50" oninput="saveQuantity('rake')"></td>
+            <td>Quantity</td>
             <td>
                 <button onclick="changeQuantity('rake', -1)">-</button>
                 <button onclick="changeQuantity('rake', 1)">+</button>
             </td>
-        </tr>
-        <tr>
-            <td>Pruning Shears</td>
-            <td><input type="number" id="pruning_shears" value="30" oninput="saveQuantity('pruning_shears')"></td>
             <td>
-                <button onclick="changeQuantity('pruning_shears', -1)">-</button>
-                <button onclick="changeQuantity('pruning_shears', 1)">+</button>
+                <button onclick="deleteProduct('Rake')">Delete</button>
             </td>
         </tr>
         <tr>
-            <td>Wheelbarrow</td>
-            <td><input type="number" id="wheelbarrow" value="20" oninput="saveQuantity('wheelbarrow')"></td>
+            <td>Shears</td>
+            <td><input type="number" id="shears" value="30" oninput="saveQuantity('shears')"></td>
+            <td>Quantity</td>
             <td>
-                <button onclick="changeQuantity('wheelbarrow', -1)">-</button>
-                <button onclick="changeQuantity('wheelbarrow', 1)">+</button>
+                <button onclick="changeQuantity('shears', -1)">-</button>
+                <button onclick="changeQuantity('shears', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Shears')">Delete</button>
             </td>
         </tr>
         <tr>
             <td>Hoe</td>
             <td><input type="number" id="hoe" value="40" oninput="saveQuantity('hoe')"></td>
+            <td>Quantity</td>
             <td>
                 <button onclick="changeQuantity('hoe', -1)">-</button>
                 <button onclick="changeQuantity('hoe', 1)">+</button>
             </td>
-        </tr>
-        <!-- 继续添加更多农具品种 -->
-        <tr>
-            <td>Garden Fork</td>
-            <td><input type="number" id="garden_fork" value="60" oninput="saveQuantity('garden_fork')"></td>
             <td>
-                <button onclick="changeQuantity('garden_fork', -1)">-</button>
-                <button onclick="changeQuantity('garden_fork', 1)">+</button>
+                <button onclick="deleteProduct('Hoe')">Delete</button>
             </td>
         </tr>
         <tr>
-            <td>Hand Trowel</td>
-            <td><input type="number" id="hand_trowel" value="70" oninput="saveQuantity('hand_trowel')"></td>
+            <td>Fork</td>
+            <td><input type="number" id="fork" value="60" oninput="saveQuantity('fork')"></td>
+            <td>Quantity</td>
             <td>
-                <button onclick="changeQuantity('hand_trowel', -1)">-</button>
-                <button onclick="changeQuantity('hand_trowel', 1)">+</button>
+                <button onclick="changeQuantity('fork', -1)">-</button>
+                <button onclick="changeQuantity('fork', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Fork')">Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Trowel</td>
+            <td><input type="number" id="trowel" value="70" oninput="saveQuantity('trowel')"></td>
+            <td>Quantity</td>
+            <td>
+                <button onclick="changeQuantity('trowel', -1)">-</button>
+                <button onclick="changeQuantity('trowel', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Trowel')">Delete</button>
             </td>
         </tr>
         <tr>
             <td>Scythe</td>
             <td><input type="number" id="scythe" value="80" oninput="saveQuantity('scythe')"></td>
+            <td>Quantity</td>
             <td>
                 <button onclick="changeQuantity('scythe', -1)">-</button>
                 <button onclick="changeQuantity('scythe', 1)">+</button>
             </td>
-        </tr>
-        <tr>
-            <td>Pruning Saw</td>
-            <td><input type="number" id="pruning_saw" value="90" oninput="saveQuantity('pruning_saw')"></td>
             <td>
-                <button onclick="changeQuantity('pruning_saw', -1)">-</button>
-                <button onclick="changeQuantity('pruning_saw', 1)">+</button>
+                <button onclick="deleteProduct('Scythe')">Delete</button>
             </td>
         </tr>
         <tr>
-            <td>Lopping Shears</td>
-            <td><input type="number" id="lopping_shears" value="100" oninput="saveQuantity('lopping_shears')"></td>
+            <td>Saw</td>
+            <td><input type="number" id="saw" value="90" oninput="saveQuantity('saw')"></td>
+            <td>Quantity</td>
             <td>
-                <button onclick="changeQuantity('lopping_shears', -1)">-</button>
-                <button onclick="changeQuantity('lopping_shears', 1)">+</button>
+                <button onclick="changeQuantity('saw', -1)">-</button>
+                <button onclick="changeQuantity('saw', 1)">+</button>
             </td>
-        </tr>
-        <tr>
-            <td>Sickle</td>
-            <td><input type="number" id="sickle" value="110" oninput="saveQuantity('sickle')"></td>
             <td>
-                <button onclick="changeQuantity('sickle', -1)">-</button>
-                <button onclick="changeQuantity('sickle', 1)">+</button>
+                <button onclick="deleteProduct('Saw')">Delete</button>
             </td>
         </tr>
         <tr>
             <td>Secateurs</td>
-            <td><input type="number" id="secateurs" value="120" oninput="saveQuantity('secateurs')"></td>
+            <td><input type="number" id="secateurs" value="100" oninput="saveQuantity('secateurs')"></td>
+            <td>Quantity</td>
             <td>
                 <button onclick="changeQuantity('secateurs', -1)">-</button>
                 <button onclick="changeQuantity('secateurs', 1)">+</button>
             </td>
-        </tr>
-        <tr>
-            <td>Leaf Rake</td>
-            <td><input type="number" id="leaf_rake" value="130" oninput="saveQuantity('leaf_rake')"></td>
             <td>
-                <button onclick="changeQuantity('leaf_rake', -1)">-</button>
-                <button onclick="changeQuantity('leaf_rake', 1)">+</button>
+                <button onclick="deleteProduct('Secateurs')">Delete</button>
             </td>
         </tr>
         <tr>
-            <td>Garden Hoe</td>
-            <td><input type="number" id="garden_hoe" value="140" oninput="saveQuantity('garden_hoe')"></td>
+            <td>Rake</td>
+            <td><input type="number" id="rake" value="110" oninput="saveQuantity('rake')"></td>
+            <td>Quantity</td>
             <td>
-                <button onclick="changeQuantity('garden_hoe', -1)">-</button>
-                <button onclick="changeQuantity('garden_hoe', 1)">+</button>
+                <button onclick="changeQuantity('rake', -1)">-</button>
+                <button onclick="changeQuantity('rake', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Rake')">Delete</button>
             </td>
         </tr>
         <tr>
-            <td>Hand Fork</td>
-            <td><input type="number" id="hand_fork" value="150" oninput="saveQuantity('hand_fork')"></td>
+            <td>Pruners</td>
+            <td><input type="number" id="pruners" value="120" oninput="saveQuantity('pruners')"></td>
+            <td>Quantity</td>
             <td>
-                <button onclick="changeQuantity('hand_fork', -1)">-</button>
-                <button onclick="changeQuantity('hand_fork', 1)">+</button>
+                <button onclick="changeQuantity('pruners', -1)">-</button>
+                <button onclick="changeQuantity('pruners', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Pruners')">Delete</button>
             </td>
         </tr>
         <tr>
-            <td>Hedge Trimmer</td>
-            <td><input type="number" id="hedge_trimmer" value="160" oninput="saveQuantity('hedge_trimmer')"></td>
+            <td>Rake</td>
+            <td><input type="number" id="rake" value="130" oninput="saveQuantity('rake')"></td>
+            <td>Quantity</td>
             <td>
-                <button onclick="changeQuantity('hedge_trimmer', -1)">-</button>
-                <button onclick="changeQuantity('hedge_trimmer', 1)">+</button>
+                <button onclick="changeQuantity('rake', -1)">-</button>
+                <button onclick="changeQuantity('rake', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Rake')">Delete</button>
             </td>
         </tr>
         <tr>
-            <td>Bypass Pruners</td>
-            <td><input type="number" id="bypass_pruners" value="170" oninput="saveQuantity('bypass_pruners')"></td>
+            <td>Hoe</td>
+            <td><input type="number" id="hoe" value="140" oninput="saveQuantity('hoe')"></td>
+            <td>Quantity</td>
             <td>
-                <button onclick="changeQuantity('bypass_pruners', -1)">-</button>
-                <button onclick="changeQuantity('bypass_pruners', 1)">+</button>
+                <button onclick="changeQuantity('hoe', -1)">-</button>
+                <button onclick="changeQuantity('hoe', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Hoe')">Delete</button>
             </td>
         </tr>
         <tr>
-            <td>Grafting Knife</td>
-            <td><input type="number" id="grafting_knife" value="180" oninput="saveQuantity('grafting_knife')"></td>
+            <td>Fork</td>
+            <td><input type="number" id="fork" value="150" oninput="saveQuantity('fork')"></td>
+            <td>Quantity</td>
             <td>
-                <button onclick="changeQuantity('grafting_knife', -1)">-</button>
-                <button onclick="changeQuantity('grafting_knife', 1)">+</button>
+                <button onclick="changeQuantity('fork', -1)">-</button>
+                <button onclick="changeQuantity('fork', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Fork')">Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Trimmer</td>
+            <td><input type="number" id="trimmer" value="160" oninput="saveQuantity('trimmer')"></td>
+            <td>Quantity</td>
+            <td>
+                <button onclick="changeQuantity('trimmer', -1)">-</button>
+                <button onclick="changeQuantity('trimmer', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Trimmer')">Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Pruners</td>
+            <td><input type="number" id="pruners" value="170" oninput="saveQuantity('pruners')"></td>
+            <td>Quantity</td>
+            <td>
+                <button onclick="changeQuantity('pruners', -1)">-</button>
+                <button onclick="changeQuantity('pruners', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Pruners')">Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Knife</td>
+            <td><input type="number" id="knife" value="180" oninput="saveQuantity('knife')"></td>
+            <td>Quantity</td>
+            <td>
+                <button onclick="changeQuantity('knife', -1)">-</button>
+                <button onclick="changeQuantity('knife', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Knife')">Delete</button>
             </td>
         </tr>
         <tr>
             <td>Spade</td>
             <td><input type="number" id="spade" value="190" oninput="saveQuantity('spade')"></td>
+            <td>Quantity</td>
             <td>
                 <button onclick="changeQuantity('spade', -1)">-</button>
                 <button onclick="changeQuantity('spade', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Spade')">Delete</button>
             </td>
         </tr>
         <tr>
             <td>Plough</td>
             <td><input type="number" id="plough" value="200" oninput="saveQuantity('plough')"></td>
+            <td>Quantity</td>
             <td>
                 <button onclick="changeQuantity('plough', -1)">-</button>
                 <button onclick="changeQuantity('plough', 1)">+</button>
             </td>
-        </tr>
-        <!-- 继续添加更多农具品种 -->
+            <td>
+                <button onclick="deleteProduct('Plough')">Delete</button>
+            </td>
+        </tr>        
     </table>
+
+    <div id="newProductSection">
+        <input type="text" id="newProduct" placeholder="Enter new product name">
+        <input type="text" id="newUnit" placeholder="Enter unit">
+        <button onclick="addNewProduct()">Add Product</button>
+    </div>
+
+    <div class="buttons">
+        <a href="inventory.html">Back to Inventory</a>
+        <a href="dashboard.html">Back to Dashboard</a>
+    </div>
+
 </div>
 
 <script>
-    // Load saved quantities from local storage
+    // Load existing products and quantities from local storage
     window.onload = function() {
-        loadQuantity('shovel');
-        loadQuantity('rake');
-        loadQuantity('pruning_shears');
-        loadQuantity('wheelbarrow');
-        loadQuantity('hoe');
-        // 加载更多农具品种的数量
+        loadExistingProducts();
     };
+
+    function loadExistingProducts() {
+        let existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+        let table = document.querySelector("table");
+        existingProducts.forEach(function(product) {
+            let newRow = document.createElement("tr");
+
+            let productNameCell = document.createElement("td");
+            productNameCell.textContent = product.name;
+            newRow.appendChild(productNameCell);
+
+            let quantityCell = document.createElement("td");
+            let quantityInput = document.createElement("input");
+            quantityInput.type = "number";
+            quantityInput.value = product.quantity || "0";
+            quantityInput.id = product.name.toLowerCase().replace(/\s+/g, '_');
+            quantityInput.oninput = function() {
+                saveQuantity(this.id);
+            };
+            quantityCell.appendChild(quantityInput);
+            newRow.appendChild(quantityCell);
+
+            let unitCell = document.createElement("td");
+            unitCell.textContent = product.unit || "";
+            newRow.appendChild(unitCell);
+
+            let buttonCell = document.createElement("td");
+            let minusButton = document.createElement("button");
+            minusButton.textContent = "-";
+            minusButton.onclick = function() {
+                changeQuantity(quantityInput.id, -1);
+            };
+            buttonCell.appendChild(minusButton);
+            let plusButton = document.createElement("button");
+            plusButton.textContent = "+";
+            plusButton.onclick = function() {
+                changeQuantity(quantityInput.id, 1);
+            };
+            buttonCell.appendChild(plusButton);
+            newRow.appendChild(buttonCell);
+
+            let deleteCell = document.createElement("td");
+            let deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.onclick = function() {
+                deleteProduct(product.name);
+            };
+            deleteCell.appendChild(deleteButton);
+            newRow.appendChild(deleteCell);
+
+            table.appendChild(newRow);
+        });
+    }
+
+    function deleteProduct(productName) {
+        if (confirm("Are you sure you want to delete " + productName + "?")) {
+            let existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+            let updatedProducts = existingProducts.filter(function(product) {
+                return product.name !== productName;
+            });
+            localStorage.setItem('products', JSON.stringify(updatedProducts));
+            location.reload(); // Reload the page to reflect the changes
+        }
+    }
+
+    function addNewProduct() {
+        let newProductName = document.getElementById('newProduct').value.trim();
+        let newUnit = document.getElementById('newUnit').value.trim();
+        if (newProductName === "" || newUnit === "") {
+            alert("Please enter a valid product name and unit.");
+            return;
+        }
+
+        let existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+        let existingProductNames = existingProducts.map(function(product) {
+            return product.name.toLowerCase();
+        });
+
+        if (existingProductNames.includes(newProductName.toLowerCase())) {
+            alert("Product already exists.");
+            return;
+        }
+
+        let newProduct = {
+            name: newProductName,
+            quantity: 0,
+            unit: newUnit
+        };
+
+        existingProducts.push(newProduct);
+        localStorage.setItem('products', JSON.stringify(existingProducts));
+
+        let table = document.querySelector("table");
+        let newRow = document.createElement("tr");
+
+        let productNameCell = document.createElement("td");
+        productNameCell.textContent = newProductName;
+        newRow.appendChild(productNameCell);
+
+        let quantityCell = document.createElement("td");
+        let quantityInput = document.createElement("input");
+        quantityInput.type = "number";
+        quantityInput.value = "0";
+        quantityInput.id = newProductName.toLowerCase().replace(/\s+/g, '_');
+        quantityInput.oninput = function() {
+            saveQuantity(this.id);
+        };
+        quantityCell.appendChild(quantityInput);
+        newRow.appendChild(quantityCell);
+
+        let unitCell = document.createElement("td");
+        unitCell.textContent = newUnit;
+        newRow.appendChild(unitCell);
+
+        let buttonCell = document.createElement("td");
+        let minusButton = document.createElement("button");
+        minusButton.textContent = "-";
+        minusButton.onclick = function() {
+            changeQuantity(quantityInput.id, -1);
+        };
+        buttonCell.appendChild(minusButton);
+        let plusButton = document.createElement("button");
+        plusButton.textContent = "+";
+        plusButton.onclick = function() {
+            changeQuantity(quantityInput.id, 1);
+        };
+        buttonCell.appendChild(plusButton);
+        newRow.appendChild(buttonCell);
+
+        let deleteCell = document.createElement("td");
+        let deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = function() {
+            deleteProduct(newProductName);
+        };
+        deleteCell.appendChild(deleteButton);
+        newRow.appendChild(deleteCell);
+
+        table.appendChild(newRow);
+
+        // Reset input fields
+        document.getElementById('newProduct').value = "";
+        document.getElementById('newUnit').value = "";
+    }
 
     function changeQuantity(item, amount) {
         let inputElement = document.getElementById(item);
@@ -211,13 +423,13 @@
 
     function saveQuantity(item) {
         let inputElement = document.getElementById(item);
-        localStorage.setItem(item, inputElement.value);
-    }
-
-    function loadQuantity(item) {
-        let savedValue = localStorage.getItem(item);
-        if (savedValue !== null) {
-            document.getElementById(item).value = savedValue;
+        let existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+        let existingProduct = existingProducts.find(function(product) {
+            return product.name.toLowerCase() === item.replace('_', ' ').toLowerCase();
+        });
+        if (existingProduct) {
+            existingProduct.quantity = parseInt(inputElement.value);
+            localStorage.setItem('products', JSON.stringify(existingProducts));
         }
     }
 
@@ -240,5 +452,6 @@
 </script>
 <div id="footer"></div>
 <script src="include.js"></script> <!-- Script to include header and footer -->
+
 </body>
 </html>

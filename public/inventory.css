@@ -7,22 +7,22 @@ body, html {
 
 .container {
     max-width: 100%;
-    margin-top: 180px; /* Adjusted to exactly below the header */
-    margin-bottom: 100px; /* Adjusted to exactly above the footer */
-    padding: 0px; /* Optional: Adds padding around the content inside main */
+    margin-top: 180px; 
+    margin-bottom: 100px; 
+    padding: 0px; 
 }
 
 input[type="text"] {
-    width: 100%; /* 设置输入框的宽度与选项框一致 */
+    width: 100%; 
     padding: 10px;
     margin: 10px auto;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
     text-align: center;
-    background-color: #2C4636; /* 设置背景颜色 */
-    color: white; /* 设置文字颜色 */
-    height: 45px; /* 与选项框保持一致的高度 */
+    background-color: #2C4636; 
+    color: white; 
+    height: 45px; 
 }
 
 ul {
@@ -50,4 +50,13 @@ a {
 
 a:hover {
     background-color: #f0f0f0;
+}
+
+@media only screen and (max-width: 428px) {
+    .container {
+        padding: 0 10px; 
+    }
+    input[type="text"] {
+        width: calc(100% - 20px); 
+    }
 }

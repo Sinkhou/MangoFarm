@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="inventory.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="inventory.css">
     <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
@@ -19,81 +19,299 @@
 
     <table>
         <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th></th>
+            <td>Chloramphenicol</td>
+            <td><input type="number" id="chloramphenicol" value="0" oninput="saveQuantity('chloramphenicol')"></td>
+            <td>kg</td>
+            <td>
+                <button onclick="changeQuantity('chloramphenicol', -1)">-</button>
+                <button onclick="changeQuantity('chloramphenicol', 1)">+</button>
+            </td>
+            <td><button onclick="deleteProduct('Chloramphenicol')">Delete</button></td>
         </tr>
         <tr>
-            <td>Insecticide A</td>
-            <td><input type="number" id="insecticide_a" value="100" oninput="saveQuantity('insecticide_a')"></td>
+            <td>Benomyl</td>
+            <td><input type="number" id="benomyl" value="0" oninput="saveQuantity('benomyl')"></td>
+            <td>kg</td>
             <td>
-                <button onclick="changeQuantity('insecticide_a', -1)">-</button>
-                <button onclick="changeQuantity('insecticide_a', 1)">+</button>
+                <button onclick="changeQuantity('benomyl', -1)">-</button>
+                <button onclick="changeQuantity('benomyl', 1)">+</button>
             </td>
+            <td><button onclick="deleteProduct('Benomyl')">Delete</button></td>
         </tr>
         <tr>
-            <td>Insecticide B</td>
-            <td><input type="number" id="insecticide_b" value="50" oninput="saveQuantity('insecticide_b')"></td>
+            <td>Ethoprophos</td>
+            <td><input type="number" id="ethoprophos" value="0" oninput="saveQuantity('ethoprophos')"></td>
+            <td>kg</td>
             <td>
-                <button onclick="changeQuantity('insecticide_b', -1)">-</button>
-                <button onclick="changeQuantity('insecticide_b', 1)">+</button>
+                <button onclick="changeQuantity('ethoprophos', -1)">-</button>
+                <button onclick="changeQuantity('ethoprophos', 1)">+</button>
             </td>
+            <td><button onclick="deleteProduct('Ethoprophos')">Delete</button></td>
         </tr>
         <tr>
-            <td>Fungicide A</td>
-            <td><input type="number" id="fungicide_a" value="30" oninput="saveQuantity('fungicide_a')"></td>
+            <td>Gentamicin</td>
+            <td><input type="number" id="gentamicin" value="0" oninput="saveQuantity('gentamicin')"></td>
+            <td>kg</td>
             <td>
-                <button onclick="changeQuantity('fungicide_a', -1)">-</button>
-                <button onclick="changeQuantity('fungicide_a', 1)">+</button>
+                <button onclick="changeQuantity('gentamicin', -1)">-</button>
+                <button onclick="changeQuantity('gentamicin', 1)">+</button>
             </td>
+            <td><button onclick="deleteProduct('Gentamicin')">Delete</button></td>
         </tr>
         <tr>
-            <td>Fungicide B</td>
-            <td><input type="number" id="fungicide_b" value="20" oninput="saveQuantity('fungicide_b')"></td>
+            <td>Imidacloprid</td>
+            <td><input type="number" id="imidacloprid" value="0" oninput="saveQuantity('imidacloprid')"></td>
+            <td>kg</td>
             <td>
-                <button onclick="changeQuantity('fungicide_b', -1)">-</button>
-                <button onclick="changeQuantity('fungicide_b', 1)">+</button>
+                <button onclick="changeQuantity('imidacloprid', -1)">-</button>
+                <button onclick="changeQuantity('imidacloprid', 1)">+</button>
             </td>
+            <td><button onclick="deleteProduct('Imidacloprid')">Delete</button></td>
         </tr>
         <tr>
-            <td>Herbicide A</td>
-            <td><input type="number" id="herbicide_a" value="40" oninput="saveQuantity('herbicide_a')"></td>
+            <td>Ibuprofen</td>
+            <td><input type="number" id="ibuprofen" value="0" oninput="saveQuantity('ibuprofen')"></td>
+            <td>kg</td>
             <td>
-                <button onclick="changeQuantity('herbicide_a', -1)">-</button>
-                <button onclick="changeQuantity('herbicide_a', 1)">+</button>
+                <button onclick="changeQuantity('ibuprofen', -1)">-</button>
+                <button onclick="changeQuantity('ibuprofen', 1)">+</button>
             </td>
+            <td><button onclick="deleteProduct('Ibuprofen')">Delete</button></td>
         </tr>
         <tr>
-            <td>Herbicide B</td>
-            <td><input type="number" id="herbicide_b" value="60" oninput="saveQuantity('herbicide_b')"></td>
+            <td>Bromocyclen</td>
+            <td><input type="number" id="bromocyclen" value="0" oninput="saveQuantity('bromocyclen')"></td>
+            <td>kg</td>
             <td>
-                <button onclick="changeQuantity('herbicide_b', -1)">-</button>
-                <button onclick="changeQuantity('herbicide_b', 1)">+</button>
+                <button onclick="changeQuantity('bromocyclen', -1)">-</button>
+                <button onclick="changeQuantity('bromocyclen', 1)">+</button>
             </td>
+            <td><button onclick="deleteProduct('Bromocyclen')">Delete</button></td>
         </tr>
         <tr>
-            <td>Organic Pesticide</td>
-            <td><input type="number" id="organic_pesticide" value="70" oninput="saveQuantity('organic_pesticide')"></td>
+            <td>Acephate</td>
+            <td><input type="number" id="acephate" value="0" oninput="saveQuantity('acephate')"></td>
+            <td>kg</td>
             <td>
-                <button onclick="changeQuantity('organic_pesticide', -1)">-</button>
-                <button onclick="changeQuantity('organic_pesticide', 1)">+</button>
+                <button onclick="changeQuantity('acephate', -1)">-</button>
+                <button onclick="changeQuantity('acephate', 1)">+</button>
             </td>
+            <td><button onclick="deleteProduct('Acephate')">Delete</button></td>
         </tr>
+        <tr>
+            <td>Triazophos</td>
+            <td><input type="number" id="triazophos" value="0" oninput="saveQuantity('triazophos')"></td>
+            <td>kg</td>
+            <td>
+                <button onclick="changeQuantity('triazophos', -1)">-</button>
+                <button onclick="changeQuantity('triazophos', 1)">+</button>
+            </td>
+            <td><button onclick="deleteProduct('Triazophos')">Delete</button></td>
+        </tr>
+        <tr>
+            <td>Mancozeb</td>
+            <td><input type="number" id="mancozeb" value="0" oninput="saveQuantity('mancozeb')"></td>
+            <td>kg</td>
+            <td>
+                <button onclick="changeQuantity('mancozeb', -1)">-</button>
+                <button onclick="changeQuantity('mancozeb', 1)">+</button>
+            </td>
+            <td><button onclick="deleteProduct('Mancozeb')">Delete</button></td>
+        </tr>
+        <tr>
+            <td>Benzimidazole</td>
+            <td><input type="number" id="benzimidazole" value="0" oninput="saveQuantity('benzimidazole')"></td>
+            <td>kg</td>
+            <td>
+                <button onclick="changeQuantity('benzimidazole', -1)">-</button>
+                <button onclick="changeQuantity('benzimidazole', 1)">+</button>
+            </td>
+            <td><button onclick="deleteProduct('Benzimidazole')">Delete</button></td>
+        </tr>
+        <tr>
+            <td>Pyriproxyfen</td>
+            <td><input type="number" id="pyriproxyfen" value="0" oninput="saveQuantity('pyriproxyfen')"></td>
+            <td>kg</td>
+            <td>
+                <button onclick="changeQuantity('pyriproxyfen', -1)">-</button>
+                <button onclick="changeQuantity('pyriproxyfen', 1)">+</button>
+            </td>
+            <td><button onclick="deleteProduct('Pyriproxyfen')">Delete</button></td>
+        </tr>
+        <tr>
+            <td>Thiacloprid</td>
+            <td><input type="number" id="thiacloprid" value="0" oninput="saveQuantity('thiacloprid')"></td>
+            <td>kg</td>
+            <td>
+                <button onclick="changeQuantity('thiacloprid', -1)">-</button>
+                <button onclick="changeQuantity('thiacloprid', 1)">+</button>
+            </td>
+            <td><button onclick="deleteProduct('Thiacloprid')">Delete</button></td>
+        </tr>  
     </table>
+
+    <div id="newProductSection">
+        <input type="text" id="newProduct" placeholder="Enter new product name">
+        <input type="text" id="newUnit" placeholder="Enter unit">
+        <button onclick="addNewProduct()">Add Product</button>
+    </div>
+
+    <div class="buttons">
+        <a href="inventory.html">Back to Inventory</a>
+        <a href="dashboard.html">Back to Dashboard</a>
+    </div>
+
 </div>
 
 <script>
-    // Load saved quantities from local storage
+    // Load existing products and quantities from local storage
     window.onload = function() {
-        loadQuantity('insecticide_a');
-        loadQuantity('insecticide_b');
-        loadQuantity('fungicide_a');
-        loadQuantity('fungicide_b');
-        loadQuantity('herbicide_a');
-        loadQuantity('herbicide_b');
-        loadQuantity('organic_pesticide');
-        // 加载更多农药品种的数量
+        loadExistingProducts();
     };
+
+    function loadExistingProducts() {
+        let existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+        let table = document.querySelector("table");
+        existingProducts.forEach(function(product) {
+            let newRow = document.createElement("tr");
+
+            let productNameCell = document.createElement("td");
+            productNameCell.textContent = product.name;
+            newRow.appendChild(productNameCell);
+
+            let quantityCell = document.createElement("td");
+            let quantityInput = document.createElement("input");
+            quantityInput.type = "number";
+            quantityInput.value = product.quantity || "0";
+            quantityInput.id = product.name.toLowerCase().replace(/\s+/g, '_');
+            quantityInput.oninput = function() {
+                saveQuantity(this.id);
+            };
+            quantityCell.appendChild(quantityInput);
+            newRow.appendChild(quantityCell);
+
+            let unitCell = document.createElement("td");
+            unitCell.textContent = product.unit || "";
+            newRow.appendChild(unitCell);
+
+            let buttonCell = document.createElement("td");
+            let minusButton = document.createElement("button");
+            minusButton.textContent = "-";
+            minusButton.onclick = function() {
+                changeQuantity(quantityInput.id, -1);
+            };
+            buttonCell.appendChild(minusButton);
+            let plusButton = document.createElement("button");
+            plusButton.textContent = "+";
+            plusButton.onclick = function() {
+                changeQuantity(quantityInput.id, 1);
+            };
+            buttonCell.appendChild(plusButton);
+            newRow.appendChild(buttonCell);
+
+            let deleteCell = document.createElement("td");
+            let deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.onclick = function() {
+                deleteProduct(product.name);
+            };
+            deleteCell.appendChild(deleteButton);
+            newRow.appendChild(deleteCell);
+
+            table.appendChild(newRow);
+        });
+    }
+
+    function deleteProduct(productName) {
+        if (confirm("Are you sure you want to delete " + productName + "?")) {
+            let existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+            let updatedProducts = existingProducts.filter(function(product) {
+                return product.name !== productName;
+            });
+            localStorage.setItem('products', JSON.stringify(updatedProducts));
+            location.reload(); // Reload the page to reflect the changes
+        }
+    }
+
+    function addNewProduct() {
+        let newProductName = document.getElementById('newProduct').value.trim();
+        let newUnit = document.getElementById('newUnit').value.trim();
+        if (newProductName === "" || newUnit === "") {
+            alert("Please enter a valid product name and unit.");
+            return;
+        }
+
+        let existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+        let existingProductNames = existingProducts.map(function(product) {
+            return product.name.toLowerCase();
+        });
+
+        if (existingProductNames.includes(newProductName.toLowerCase())) {
+            alert("Product already exists.");
+            return;
+        }
+
+        let newProduct = {
+            name: newProductName,
+            quantity: 0,
+            unit: newUnit
+        };
+
+        existingProducts.push(newProduct);
+        localStorage.setItem('products', JSON.stringify(existingProducts));
+
+        let table = document.querySelector("table");
+        let newRow = document.createElement("tr");
+
+        let productNameCell = document.createElement("td");
+        productNameCell.textContent = newProductName;
+        newRow.appendChild(productNameCell);
+
+        let quantityCell = document.createElement("td");
+        let quantityInput = document.createElement("input");
+        quantityInput.type = "number";
+        quantityInput.value = "0";
+        quantityInput.id = newProductName.toLowerCase().replace(/\s+/g, '_');
+        quantityInput.oninput = function() {
+            saveQuantity(this.id);
+        };
+        quantityCell.appendChild(quantityInput);
+        newRow.appendChild(quantityCell);
+
+        let unitCell = document.createElement("td");
+        unitCell.textContent = newUnit;
+        newRow.appendChild(unitCell);
+
+        let buttonCell = document.createElement("td");
+        let minusButton = document.createElement("button");
+        minusButton.textContent = "-";
+        minusButton.onclick = function() {
+            changeQuantity(quantityInput.id, -1);
+        };
+        buttonCell.appendChild(minusButton);
+        let plusButton = document.createElement("button");
+        plusButton.textContent = "+";
+        plusButton.onclick = function() {
+            changeQuantity(quantityInput.id, 1);
+        };
+        buttonCell.appendChild(plusButton);
+        newRow.appendChild(buttonCell);
+
+        let deleteCell = document.createElement("td");
+        let deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = function() {
+            deleteProduct(newProductName);
+        };
+        deleteCell.appendChild(deleteButton);
+        newRow.appendChild(deleteCell);
+
+        table.appendChild(newRow);
+
+        // Reset input fields
+        document.getElementById('newProduct').value = "";
+        document.getElementById('newUnit').value = "";
+    }
 
     function changeQuantity(item, amount) {
         let inputElement = document.getElementById(item);
@@ -107,13 +325,13 @@
 
     function saveQuantity(item) {
         let inputElement = document.getElementById(item);
-        localStorage.setItem(item, inputElement.value);
-    }
-
-    function loadQuantity(item) {
-        let savedValue = localStorage.getItem(item);
-        if (savedValue !== null) {
-            document.getElementById(item).value = savedValue;
+        let existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+        let existingProduct = existingProducts.find(function(product) {
+            return product.name.toLowerCase() === item.replace('_', ' ').toLowerCase();
+        });
+        if (existingProduct) {
+            existingProduct.quantity = parseInt(inputElement.value);
+            localStorage.setItem('products', JSON.stringify(existingProducts));
         }
     }
 
@@ -136,5 +354,6 @@
 </script>
 <div id="footer"></div>
 <script src="include.js"></script> <!-- Script to include header and footer -->
+
 </body>
 </html>

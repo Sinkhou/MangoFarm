@@ -21,116 +21,318 @@
         <tr>
             <th>Product</th>
             <th>Quantity</th>
+            <th>Unit</th>
+            <th></th>
             <th></th>
         </tr>
         <tr>
             <td>Alphonso</td>
             <td><input type="number" id="alphonso" value="100" oninput="saveQuantity('alphonso')"></td>
+            <td>kg</td>
             <td>
                 <button onclick="changeQuantity('alphonso', -1)">-</button>
                 <button onclick="changeQuantity('alphonso', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Alphonso')">Delete</button>
             </td>
         </tr>
         <tr>
             <td>Kesar</td>
             <td><input type="number" id="kesar" value="50" oninput="saveQuantity('kesar')"></td>
+            <td>kg</td>
             <td>
                 <button onclick="changeQuantity('kesar', -1)">-</button>
                 <button onclick="changeQuantity('kesar', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Kesar')">Delete</button>
             </td>
         </tr>
         <tr>
             <td>Ataulfo</td>
             <td><input type="number" id="ataulfo" value="30" oninput="saveQuantity('ataulfo')"></td>
+            <td>kg</td>
             <td>
                 <button onclick="changeQuantity('ataulfo', -1)">-</button>
                 <button onclick="changeQuantity('ataulfo', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Ataulfo')">Delete</button>
             </td>
         </tr>
         <tr>
             <td>Haden</td>
             <td><input type="number" id="haden" value="20" oninput="saveQuantity('haden')"></td>
+            <td>kg</td>
             <td>
                 <button onclick="changeQuantity('haden', -1)">-</button>
                 <button onclick="changeQuantity('haden', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Haden')">Delete</button>
             </td>
         </tr>
         <tr>
             <td>Tommy Atkins</td>
             <td><input type="number" id="tommy_atkins" value="40" oninput="saveQuantity('tommy_atkins')"></td>
+            <td>kg</td>
             <td>
                 <button onclick="changeQuantity('tommy_atkins', -1)">-</button>
                 <button onclick="changeQuantity('tommy_atkins', 1)">+</button>
             </td>
+            <td>
+                <button onclick="deleteProduct('Tommy Atkins')">Delete</button>
+            </td>
         </tr>
-        <!-- 继续添加更多芒果品种 -->
         <tr>
             <td>Mallika</td>
             <td><input type="number" id="mallika" value="60" oninput="saveQuantity('mallika')"></td>
+            <td>kg</td>
             <td>
                 <button onclick="changeQuantity('mallika', -1)">-</button>
                 <button onclick="changeQuantity('mallika', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Mallika')">Delete</button>
             </td>
         </tr>
         <tr>
             <td>Julie</td>
             <td><input type="number" id="julie" value="25" oninput="saveQuantity('julie')"></td>
+            <td>kg</td>
             <td>
                 <button onclick="changeQuantity('julie', -1)">-</button>
                 <button onclick="changeQuantity('julie', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Julie')">Delete</button>
             </td>
         </tr>
         <tr>
             <td>Manila</td>
             <td><input type="number" id="manila" value="35" oninput="saveQuantity('manila')"></td>
+            <td>kg</td>
             <td>
                 <button onclick="changeQuantity('manila', -1)">-</button>
                 <button onclick="changeQuantity('manila', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Manila')">Delete</button>
             </td>
         </tr>
         <tr>
             <td>Panama</td>
             <td><input type="number" id="panama" value="45" oninput="saveQuantity('panama')"></td>
+            <td>kg</td>
             <td>
                 <button onclick="changeQuantity('panama', -1)">-</button>
                 <button onclick="changeQuantity('panama', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Panama')">Delete</button>
             </td>
         </tr>
         <tr>
             <td>Amrapali</td>
             <td><input type="number" id="amrapali" value="55" oninput="saveQuantity('amrapali')"></td>
+            <td>kg</td>
             <td>
                 <button onclick="changeQuantity('amrapali', -1)">-</button>
                 <button onclick="changeQuantity('amrapali', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Amrapali')">Delete</button>
             </td>
         </tr>
         <tr>
             <td>Bailey's Marvel</td>
             <td><input type="number" id="baileys_marvel" value="65" oninput="saveQuantity('baileys_marvel')"></td>
+            <td>kg</td>
             <td>
                 <button onclick="changeQuantity('baileys_marvel', -1)">-</button>
                 <button onclick="changeQuantity('baileys_marvel', 1)">+</button>
             </td>
+            <td>
+                <button onclick="deleteProduct('Bailey\'s Marvel')">Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Sindhuri</td>
+            <td><input type="number" id="sindhuri" value="55" oninput="saveQuantity('sindhuri')"></td>
+            <td>kg</td>
+            <td>
+                <button onclick="changeQuantity('sindhuri', -1)">-</button>
+                <button onclick="changeQuantity('sindhuri', 1)">+</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('Sindhuri')">Delete</button>
+            </td>
         </tr>
     </table>
+
+    <div id="newProductSection">
+        <input type="text" id="newProduct" placeholder="Enter new product name">
+        <input type="text" id="newUnit" placeholder="Enter unit">
+        <button onclick="addNewProduct()">Add Product</button>
+    </div>
+
+    <div class="buttons">
+        <a href="inventory.html">Back to Inventory</a>
+        <a href="dashboard.html">Back to Dashboard</a>
+    </div>
+
 </div>
 
 <script>
-    // Load saved quantities from local storage
+    // Load existing products and quantities from local storage
     window.onload = function() {
-        loadQuantity('alphonso');
-        loadQuantity('kesar');
-        loadQuantity('ataulfo');
-        loadQuantity('haden');
-        loadQuantity('tommy_atkins');
-        loadQuantity('mallika');
-        loadQuantity('julie');
-        loadQuantity('manila');
-        loadQuantity('panama');
-        loadQuantity('amrapali');
-        loadQuantity('baileys_marvel');
-        // 加载更多芒果品种的数量
+        loadExistingProducts();
     };
+
+    function loadExistingProducts() {
+        let existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+        let table = document.querySelector("table");
+        existingProducts.forEach(function(product) {
+            let newRow = document.createElement("tr");
+
+            let productNameCell = document.createElement("td");
+            productNameCell.textContent = product.name;
+            newRow.appendChild(productNameCell);
+
+            let quantityCell = document.createElement("td");
+            let quantityInput = document.createElement("input");
+            quantityInput.type = "number";
+            quantityInput.value = product.quantity || "0";
+            quantityInput.id = product.name.toLowerCase().replace(/\s+/g, '_');
+            quantityInput.oninput = function() {
+                saveQuantity(this.id);
+            };
+            quantityCell.appendChild(quantityInput);
+            newRow.appendChild(quantityCell);
+
+            let unitCell = document.createElement("td");
+            unitCell.textContent = product.unit || "";
+            newRow.appendChild(unitCell);
+
+            let buttonCell = document.createElement("td");
+            let minusButton = document.createElement("button");
+            minusButton.textContent = "-";
+            minusButton.onclick = function() {
+                changeQuantity(quantityInput.id, -1);
+            };
+            buttonCell.appendChild(minusButton);
+            let plusButton = document.createElement("button");
+            plusButton.textContent = "+";
+            plusButton.onclick = function() {
+                changeQuantity(quantityInput.id, 1);
+            };
+            buttonCell.appendChild(plusButton);
+            newRow.appendChild(buttonCell);
+
+            let deleteCell = document.createElement("td");
+            let deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.onclick = function() {
+                deleteProduct(product.name);
+            };
+            deleteCell.appendChild(deleteButton);
+            newRow.appendChild(deleteCell);
+
+            table.appendChild(newRow);
+        });
+    }
+
+    function deleteProduct(productName) {
+        if (confirm("Are you sure you want to delete " + productName + "?")) {
+            let existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+            let updatedProducts = existingProducts.filter(function(product) {
+                return product.name !== productName;
+            });
+            localStorage.setItem('products', JSON.stringify(updatedProducts));
+            location.reload(); // Reload the page to reflect the changes
+        }
+    }
+
+    function addNewProduct() {
+        let newProductName = document.getElementById('newProduct').value.trim();
+        let newUnit = document.getElementById('newUnit').value.trim();
+        if (newProductName === "" || newUnit === "") {
+            alert("Please enter a valid product name and unit.");
+            return;
+        }
+
+        let existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+        let existingProductNames = existingProducts.map(function(product) {
+            return product.name.toLowerCase();
+        });
+
+        if (existingProductNames.includes(newProductName.toLowerCase())) {
+            alert("Product already exists.");
+            return;
+        }
+
+        let newProduct = {
+            name: newProductName,
+            quantity: 0,
+            unit: newUnit
+        };
+
+        existingProducts.push(newProduct);
+        localStorage.setItem('products', JSON.stringify(existingProducts));
+
+        let table = document.querySelector("table");
+        let newRow = document.createElement("tr");
+
+        let productNameCell = document.createElement("td");
+        productNameCell.textContent = newProductName;
+        newRow.appendChild(productNameCell);
+
+        let quantityCell = document.createElement("td");
+        let quantityInput = document.createElement("input");
+        quantityInput.type = "number";
+        quantityInput.value = "0";
+        quantityInput.id = newProductName.toLowerCase().replace(/\s+/g, '_');
+        quantityInput.oninput = function() {
+            saveQuantity(this.id);
+        };
+        quantityCell.appendChild(quantityInput);
+        newRow.appendChild(quantityCell);
+
+        let unitCell = document.createElement("td");
+        unitCell.textContent = newUnit;
+        newRow.appendChild(unitCell);
+
+        let buttonCell = document.createElement("td");
+        let minusButton = document.createElement("button");
+        minusButton.textContent = "-";
+        minusButton.onclick = function() {
+            changeQuantity(quantityInput.id, -1);
+        };
+        buttonCell.appendChild(minusButton);
+        let plusButton = document.createElement("button");
+        plusButton.textContent = "+";
+        plusButton.onclick = function() {
+            changeQuantity(quantityInput.id, 1);
+        };
+        buttonCell.appendChild(plusButton);
+        newRow.appendChild(buttonCell);
+
+        let deleteCell = document.createElement("td");
+        let deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = function() {
+            deleteProduct(newProductName);
+        };
+        deleteCell.appendChild(deleteButton);
+        newRow.appendChild(deleteCell);
+
+        table.appendChild(newRow);
+
+        // Reset input fields
+        document.getElementById('newProduct').value = "";
+        document.getElementById('newUnit').value = "";
+    }
 
     function changeQuantity(item, amount) {
         let inputElement = document.getElementById(item);
@@ -144,13 +346,13 @@
 
     function saveQuantity(item) {
         let inputElement = document.getElementById(item);
-        localStorage.setItem(item, inputElement.value);
-    }
-
-    function loadQuantity(item) {
-        let savedValue = localStorage.getItem(item);
-        if (savedValue !== null) {
-            document.getElementById(item).value = savedValue;
+        let existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+        let existingProduct = existingProducts.find(function(product) {
+            return product.name.toLowerCase() === item.replace('_', ' ').toLowerCase();
+        });
+        if (existingProduct) {
+            existingProduct.quantity = parseInt(inputElement.value);
+            localStorage.setItem('products', JSON.stringify(existingProducts));
         }
     }
 
