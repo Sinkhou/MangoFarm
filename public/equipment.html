@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mango Farm App - Equipment Management</title>
+    <link rel="stylesheet" href="equipment.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script>
+</head>
+<body>
+    <div id="header"></div>
+    <main>
+        <form id="equipmentForm">
+            <input type="text" id="name" placeholder="Equipment Name" required>
+            <input type="text" id="type" placeholder="Equipment Type" required>
+            <select id="status">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
+            <button type="submit">Add Equipment</button>
+        </form>
+        
+        <!-- Equipment list display -->
+        <h2>Equipment List</h2>
+        <ul id="equipmentList"></ul>
+    </main>
+    <div id="footer"></div>
+    <!-- Custom JavaScript for handling the equipment logic -->
+    <script src="equipment.js"></script>
+    <script src="include.js"></script> <!-- Script to include header and footer -->
+</body>
+</html>
+
+

@@ -1,0 +1,28 @@
+form input, form select, form button {
+    margin: 10px;
+    padding: 8px;
+    width: 90%;
+}
+
+/* styles.css */
+footer {
+    padding: 10px;
+    color: #ffffff; /* Ensuring text color is white */
+    text-align: center;
+}
+
+#footerButton {
+    background-color: #2c4636; /* Matching the footer background color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#footerButton:hover {
+    opacity: 0.8; /* Optional: Adding a hover effect to the button */
+}
+
+
