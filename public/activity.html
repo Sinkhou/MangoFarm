@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Mango Farm App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles_activity.css">
+</head>
+<body>
+    <header>
+        <img src="MangoFarmApp.png" alt="Mango Farm App Logo">
+    </header>
+    <main>
+        
+        <title class="act_title">activity management system</title>
+        
+        <div style="position: relative; top: 5px;" class="two_div">
+            <div class="menu">
+                <ul>
+                    <li class="background-seed"><a href="seeds.html">Seed</a></li>
+                    <li class="background-irri"><a href="irrigattion.html">Irrigate</a></li>
+                    <li class="background-fert"><a href="fertilize.html">Fertilize</a></li>
+                    <li class="background-pest"><a href="pesticide.html">Pesticide</a></li>
+                </ul>
+                <div class="goback"><a href="dashboard.html">Back to Homepage</a></div>
+            </div>
+            <!-- <div class="menu_select menu">
+                <div class="flex_div_side">
+                    <div class="div1">${action}</div>
+                    <div class="div2">
+                        <span>quantity:</span>
+                        <button class="button" onclick="changeCount('${action}', -1)">-</button>
+                        <span id="count-${action}">0</span>
+                        <button class="button" onclick="changeCount('${action}', 1)">+</button>
+                    </div>
+                </div>
+
+                <div class="flex_div_side">
+                    <div class="div1">${action}</div>
+                    <div class="div2">
+                        <button class="button" onclick="changeCount('${action}', -1)">-</button>
+                        <span id="count-${action}">0</span>
+                        <button class="button" onclick="changeCount('${action}', 1)">+</button>
+                    </div>
+                </div> 
+                    
+            </div> -->
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Mango Farm App. All rights reserved.</p>
+    </footer>
+
+
+
+    <Script>
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     // 选取 .menu 类内的所有 <a> 标签
+        //     var menuItems = document.querySelectorAll('.menu ul li a');
+
+        //     // 为每个 <a> 添加点击事件监听器
+        //     menuItems.forEach(function(item) {
+        //         item.addEventListener('click', function(event) {
+        //             // 阻止链接默认的跳转行为
+        //             event.preventDefault();
+
+        //             // 执行一些操作，如打印被点击的 <a> 的文本内容
+        //             console.log('Clicked:', this.textContent);
+        //             var menuSelects = document.querySelectorAll('.flex_div_side .div1');
+        //             var isExist = false
+        //             var text = this.textContent
+        //             menuSelects&&menuSelects.forEach(function(item){
+        //                 // console.log(item.innerHTML,text)
+        //                 if(item.innerHTML==text){
+        //                     isExist = true
+        //                 }
+        //             })
+        //             !isExist&&addItem(this.textContent)
+        //         });
+        //     });
+        // });
+
+    
+            function addItem(action) {
+                const container = document.querySelector('.menu_select');
+                const itemDiv = document.createElement('div');
+                itemDiv.id = `item-${action}`;
+                itemDiv.className = 'flex_div_side';
+                itemDiv.innerHTML = `
+                    <div class="div1">${action}</div>
+                    <div class="div2">
+                        <span>quantity:</span>
+                        <button class="button" onclick="changeCount('${action}', -1)">-</button>
+                        <span id="count-${action}" style="width:18px;display:inline-block;text-align:center;">0</span>
+                        <button class="button" style="background-color: #2C4636;color:white;" onclick="changeCount('${action}', 1)">+</button>
+                        <button class="button" onclick="deleteItem('${action}')" style="background-color:orange;">x</button>
+                    </div>
+                `;
+                container.appendChild(itemDiv);
+            }
+    
+            window.changeCount = function(action, delta) {
+                const countSpan = document.getElementById(`count-${action}`);
+                let count = parseInt(countSpan.textContent) + delta;
+                if (count < 0) count = 0;
+                countSpan.textContent = count;
+            };
+        
+            window.deleteItem = function(action) {
+                const container = document.querySelector('.menu_select');
+                const menuSelects = document.querySelectorAll('.flex_div_side');
+                    menuSelects.forEach(function(item){
+                        var childDiv = item.querySelector('.div1');
+                        if(childDiv.innerHTML==action){
+                            // console.log(item)
+                            container.removeChild(item);
+                        }
+                    })
+            }
+    </Script>
+</body>
+</html>
+

@@ -60,3 +60,13 @@ a:hover {
         width: calc(100% - 20px); 
     }
 }
+
+#newProductSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#newProductSection button {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
