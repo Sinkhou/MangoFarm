@@ -5,65 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mango Farm App - Environmental Monitoring</title>
     <link rel="stylesheet" href="history.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <script src="include.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script>
 </head>
+
 <body>
     <div id="header"></div>
-    <div>
-        <div class="page_change_title">
+    <main>
+        <div id="HS-page_change">
             <div class="title">               
-                <h1 class="title_format"><a href="environmental_monitoring.html">Environmental_Monitoring</a></h1>
+                <h1 class="title_format"><a href="environmental_monitoring.html">Environmental Monitoring</a></h1>
 
             </div>
             <div class="title" style="background-color: #006000;">    
                 <h1 class="title_format" style="background-color: #006000;"><a href="history.html">History</a></h1>
             </div>
         </div>
-    </div>
-    <h1>Historical Data</h1>
-    <p>Weather</p>
-    <div>
-        <div id="weatherTableContainer" style="height: 200px; overflow-y: auto;">
-            <table id="weatherTable">
-                <thead>
-                    <tr>
-                        <th>Condition</th>
-                        <th>Humidity</th>
-                        <th>Local Time</th>
-                        <th>Pressure</th>
-                        <th>Temperature</th>
-                        <th>UV Index</th>
-                        <th>Wind</th>
-                    </tr>
-                </thead>
-                <tbody id="weatherData">
-                    <!-- Data rows will be inserted here -->
-                </tbody>
-            </table>
+    
+        <h1>Historical Data</h1>
+        <p>Weather</p>
+        <div>
+            <div id="HS-weatherTableContainer" style="height: 200px; overflow-y: auto;">
+                <table id="HS-weatherTable">
+                    <thead>
+                        <tr>
+                            <th>Condition</th>
+                            <th>Humidity</th>
+                            <th>Local Time</th>
+                            <th>Pressure</th>
+                            <th>Temperature</th>
+                            <th>UV Index</th>
+                            <th>Wind</th>
+                        </tr>
+                    </thead>
+                    <tbody id="weatherData">
+                        <!-- Data rows will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+            <button onclick="loadWeatherData()">Update</button> 
+            <p>Activity</p>
+        
+            <div style="height: 200px; overflow-y: auto;">
+                <table id="HS-weatherTable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Field</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data rows will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <button onclick="loadWeatherData()">Update</button> 
-        <p>Activity</p>
-        <div style="height: 200px; overflow-y: auto;">
-            <table id="weatherTable">
-                <thead>
-                    <tr>
-                        <th>Time</th>
-                        <th>Field</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Data rows will be inserted here -->
-                </tbody>
-            </table>
+        <div id="HS-homescreen_button_container">
+            <button id="HS-homescreen_button" onclick="window.location.href='dashboard.html'">Homescreen</button>
         </div>
-    </div>
-    <a href="dashboard.html">Back to Dashboard</a>
+    </main>
     <div id="footer"></div>
-    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
     <script src="history.js"></script>
+    <script src="include.js"></script>
 </body>
 </html>
