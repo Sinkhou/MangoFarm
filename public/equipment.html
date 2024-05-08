@@ -16,16 +16,17 @@
         <form id="equipmentForm">
             <input type="text" id="name" placeholder="Equipment Name" required>
             <input type="text" id="type" placeholder="Equipment Type" required>
+            <input type="date" id="purchaseDate" placeholder="Purchase Date" required> <!-- New field -->
+            <input type="date" id="maintenanceDate" placeholder="Next Maintenance Date" required> <!-- New field -->
             <select id="status">
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
             </select>
             <button type="submit">Add Equipment</button>
         </form>
-        
-        <!-- Equipment list display -->
         <h2>Equipment List</h2>
         <ul id="equipmentList"></ul>
+        <button onclick="window.location.href='dashboard.html'">Return to Dashboard</button> <!-- Return button -->        
     </main>
     <div id="footer"></div>
     <!-- Custom JavaScript for handling the equipment logic -->

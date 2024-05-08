@@ -1,0 +1,51 @@
+#employee-container {
+    width: 90%;
+    max-width: 720px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin: 5px auto 20px; /* Increased to move further below the header */
+}
+
+#search-bar {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.employee-item {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.employee-item div {
+    width: 80%; /* Adjust width to leave space for the edit button */
+}
+
+button {
+    background-color: #2C4636;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#employee-form button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #2C4636; /* Green color for Homescreen button */
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}

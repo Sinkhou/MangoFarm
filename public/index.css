@@ -10,7 +10,7 @@
 #login-section, #register-section {
     width: 100%;
     max-width: 400px;
-    margin: 10px auto; /* Ensures spacing is balanced and containers are centered */
+    margin: 10px auto;
 }
 
 #login-form, #register-form {
@@ -21,13 +21,14 @@
     margin-bottom: 5px;
 }
 
-/* Adjust inputs and buttons styling if necessary */
-#login-form input[type="email"], 
-#login-form input[type="password"], 
-#register-form input[type="email"], 
+#login-form input[type="email"],
+#login-form input[type="password"],
+#register-form input[type="email"],
 #register-form input[type="password"],
-#send-announcement-form textarea,
-#send- announcement-form select {
+#register-form input[type="text"],
+#register-form input[type="date"],
+#register-form input[type="tel"],
+#register-form select {
     width: calc(100% - 24px);
     padding: 12px;
     margin: 8px 0;
@@ -35,9 +36,8 @@
     border-radius: 4px;
 }
 
-#login-form button, 
-#register-form button,
-#send-announcement-form button {
+#login-form button,
+#register-form button {
     width: 100%;
     padding: 10px;
     border: none;
@@ -46,4 +46,18 @@
     margin-top: 10px;
     border-radius: 4px;
     cursor: pointer;
+}
+
+#register-form p {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#register-form a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+#register-form a:hover {
+    text-decoration: underline;
 }
