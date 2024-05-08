@@ -59,7 +59,7 @@
 
 .reminder-entry button {
     padding: 5px 10px;
-    background-color: #ff4444; /* Red color for delete button */
+    background-color: #ec1313; /* Red color for delete button */
     color: white;
     border-radius: 5px;
     border: none;
@@ -67,5 +67,5 @@
 }
 
 .reminder-entry button:hover {
-    background-color: #cc0000; /* Darker red on hover */
+    background-color: #ec1313; /* Darker red on hover */
 }

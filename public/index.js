@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return db.collection('users').doc(uid).set({
                     firstName: firstName,
                     lastName: lastName,
+                    email: email,
                     birthDate: birthDate,
                     gender: gender,
                     phoneNumber: phoneNumber,

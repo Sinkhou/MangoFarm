@@ -24,12 +24,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 const user = doc.data();
                 const div = document.createElement('div');
                 div.className = 'employee-item';
+                div.setAttribute('data-id', doc.id);
                 div.innerHTML = `<div>
                                     <strong class='name'>Name: ${user.firstName} ${user.lastName}</strong><br>
                                     Phone: ${user.phoneNumber}<br>
                                     Birth Date: ${user.birthDate}<br>
                                     Gender: ${user.gender}<br>
                                     Job Role: ${user.jobRole}<br>
+                                    Email: ${user.email}<br>
                                  </div>`
                 employeeList.appendChild(div);
             });
@@ -37,6 +39,13 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Error loading employees:", error);
         });
     }
+
+    document.getElementById('employee-form').addEventListener('submit', function(event) {
+        if (event.target.classList.contains('delete-button')) {
+            const docId = event.target.getAttribute('data-id');
+            deleteEmployee(docId);
+        }
+    }); 
 
     window.editEmployee = function(docId) {
         console.log("Edit Employee: ", docId);
