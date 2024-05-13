@@ -23,15 +23,12 @@
                 <h1 class="title_format"><a href="history.html">History</a></h1>
             </div>
         </div>
-
         <div class="EM-main_container">
             <div id="EM-WF_container">
-                <h2 style="font-size: 15px;">Weather Forecast</h2>
-                <select id="citySelect">
-                    <option value="Lambells Lagoon, Australia" data-lat="-12.598409" data-lng="131.255389">Mango Farm 1</option>
-                    <option value="Lambells Lagoon, Australia" data-lat="-12.598751" data-lng="131.185836">Mango Farm 2</option>
-                </select>
-                <button id=EM-get_weather_button onclick="getWeather()">Get Info</button>
+                <div style="display: flex; justify-content: center;">
+                    <select id="fieldSelect"></select>
+                </div>
+                <button class="EM-get_weather_button" id="getInfoButton" onclick="fetchLocalityAndWeather()">Get Info</button>
                 <br><br>
                 <div class="EM_info_module EN-info_window" id="localTime" data-default="Local Time: --">Local Time: --</div>
                 <div class="EM_info_module EN-info_window" id="condition" data-default="Condition: --">Condition: --</div>
@@ -41,89 +38,32 @@
                 <div class="EM_info_module EN-info_window" id="uvIndex" data-default="UV Index: --">UV Index: --</div>
                 <div class="EM_info_module EN-info_window" id="pressure" data-default="Pressure: --">Pressure: --</div>
             </div>
-            <div id="map"></div>
+            <div id="EM-map_container">  
+                <div id="map" ></div>
+            </div>
             <div id="EM-RTC_container">
                 <h2 style="font-size: 15px;">Real-Time Monitoring</h2>
                 
                 <div id="EM-RTC_container2">
                 <div>
-                    <div class="EM_info_module EN-info_window" id="airQuality" data-default="Air Quality:">Air Quality:</div>
-                    <div class="EM_info_module EN-info_window" id="soilStatus" data-default="Soil Condition:">Soil Condition:</div>
+                    <div class="EM_info_module EN-info_window" id="airQuality" data-default="Air Quality(PM2.5):">Air Quality(PM2.5):</div>
+                    <div class="EM_info_module EN-info_window" id="soilStatus" data-default="Soil Moisture(%):">Soil Moisture(%):</div>
                     <div class="EM_info_module EN-info_window" id="lightIntensity" data-default="Light Intensity:">Light Intensity:</div>
-                    <div class="EM_info_module EN-info_window" id="waterQuality" data-default="Water Quality:">Water Quality:</div>
+                    <div class="EM_info_module EN-info_window" id="waterQuality" data-default="Water Quality(p.H):">Water Quality(p.H):</div>
                     <div class="EM_info_module EN-info_window" id="pestAlert" data-default="Disease Recognizing:">Disease Recognizing:</div>
+                    <button class="EM-save_button" id="saveDataButton">Save Data</button>
                 </div>    
                 <div id="EM-homescreen_button_container">
                     <button id="EM-homescreen_button" onclick="window.location.href='dashboard.html'">Homescreen</button>
                 </div>
-            </div>
-        </div>  
+            </div>    
+        </div>    
     </main>
-    
     <div id="footer"></div>
-    <script>    
-        function initMap() {
-                const map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 13,
-                    center: {lat: -12.463415, lng: 130.844764}, 
-                    mapTypeId: google.maps.MapTypeId.SATELLITE
-                });
-                const Famr1 ={
-                    field_1: {lat: -12.604418, lng: 131.263567},
-                    field_2: {lat:-12.607331, lng: 131.256932},
-                    field_3: {lat:-12.596099, lng:131.250465},
-                    field_4: {lat:-12.604690, lng:131.249649},
-                    field_5: {lat:-12.602236, lng:131.242698}
-                };
-
-                const Famr2 ={
-                    field_1: {lat: -12.597297, lng: 131.186928},
-                    field_2: {lat:-12.603458, lng: 131.186041},
-                    field_3: {lat:-12.598576, lng:131.181398},
-                    field_4: {lat:-12.588507, lng:131.183249},
-                    field_5: {lat:-12.578707, lng:131.181164}
-                };8
-                
-                const markers = [
-                    {position: Famr1.field_1, iconUrl: 'icon-EM/mapicon1.png', docId: 'farm1-1'},
-                    {position: Famr1.field_2, iconUrl: 'icon-EM/mapicon2.png', docId: 'farm1-2'},
-                    {position: Famr1.field_3, iconUrl: 'icon-EM/mapicon3.png', docId: 'farm1-3'},
-                    {position: Famr1.field_4, iconUrl: 'icon-EM/mapicon4.png', docId: 'farm1-4'},
-                    {position: Famr1.field_5, iconUrl: 'icon-EM/mapicon5.png', docId: 'farm1-5'},
-                    {position: Famr2.field_1, iconUrl: 'icon-EM/mapicon1.png', docId: 'farm2-1'},
-                    {position: Famr2.field_2, iconUrl: 'icon-EM/mapicon2.png', docId: 'farm2-2'},
-                    {position: Famr2.field_3, iconUrl: 'icon-EM/mapicon3.png', docId: 'farm2-3'},
-                    {position: Famr2.field_4, iconUrl: 'icon-EM/mapicon4.png', docId: 'farm2-4'},
-                    {position: Famr2.field_5, iconUrl: 'icon-EM/mapicon5.png', docId: 'farm2-5'}
-                ];
-
-
-                const infoWindow = new google.maps.InfoWindow();
-
-                markers.forEach(markerData => {
-                    const marker = new google.maps.Marker({
-                        position: markerData.position,
-                        map: map,
-                        icon: {
-                            url: markerData.iconUrl,
-                            scaledSize: new google.maps.Size(25, 25)
-                        }
-                    });
-
-                marker.addListener('click', () => {
-                    const contentString = `<button onclick="fetchDataAndUpdateUI('${markerData.docId}')">Data</button>`;
-                    const infoWindow = new google.maps.InfoWindow({
-                        content: contentString
-                    });
-                    infoWindow.open(map, marker);
-                });
-            });
-                window.map = map; 
-            }
-            
-    </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmbUjB_P5EJpAHca2VCKvoglSehYBJT80&callback=initMap"></script>
     <script src="environmental_monitoring.js"></script>
     <script src="include.js"></script>
 </body>
+
+
 </html>

@@ -1,0 +1,170 @@
+#inputDialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: white;
+    border: 1px solid #ccc;
+    z-index: 1001;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.MP-main_container { 
+    width: 80%; 
+    margin: 20px auto;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin-bottom: 50px;
+}
+
+#MP-map_container, #MP-map_info { 
+    padding: 5px; 
+    border-radius: 5px;  
+    box-sizing: border-box; 
+}
+
+#MP-map_info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#MP-map_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+#MP-map_button {
+    display: flex;
+    flex-direction: column;
+}
+
+#map {
+    height: 300px;
+    width: 500px;
+    border: 1px solid #ccc;
+   }
+
+input[type="text"] {
+    width: 80%; 
+    padding: 5px 5px; 
+    margin: 5px 0; 
+    display: inline-block; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+}
+
+input[type="text"]:focus {
+    border-color: #66afe9; 
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6); 
+}
+
+.locations-panel {
+    height: 200px;        
+    overflow-y: auto;    
+    background: white;    
+    border: 1px solid #ccc; 
+    border-radius: 5px;   
+    padding: 10px;        
+    width: 100px;         
+    right: 20px;          
+    top: 20px;            
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+}
+
+.locations-panel div {
+    cursor: pointer;     
+    margin-bottom: 5px;   
+    padding: 5px;         
+}
+
+.locations-panel div.selected {
+    background-color: #007BFF; 
+    color: white;         
+}
+
+#MP-homescreen_button_container {
+    display: flex;           
+    flex-direction: column;   
+    justify-content: flex-end;
+    align-items: center;
+    height: 19vh;            
+    margin-bottom: 5px;
+    width: 100%;
+
+}
+
+#MP-homescreen_button {
+    width: 55%;
+    padding: 10px;
+    border: none;
+    background-color: #2C4636;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}   
+
+button {
+    background-color: #2C4636;
+    color: white;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+}
+
+/* phone */
+@media (max-width: 100px) {
+    .MP-main_container {
+        width: 100%;
+        margin: 5px auto;
+    }
+    button {
+        font-size: 10px;  
+        padding: 5px;  
+        margin: 2px 0;  
+    }
+}
+
+@media (max-width: 1080px){
+    .MP-main_container {
+        display: flex;
+        flex-direction: column;
+        width: 100%; 
+        margin: 2px auto;
+    }
+    #MP-homescreen_button_container {
+        display: flex;           
+        flex-direction: column;   
+        height: 20vh;            
+        justify-content: flex-start;
+        margin-top: 40px;
+        width: 100%;
+    }
+    #map {
+        width: 350px;
+    }
+    #MP-map_info {
+        justify-content: center;
+        align-items: center;
+    }
+}
+#locationsList {
+    padding: 10px;
+    margin-top: 20px;
+    border: 1px solid #ccc; /* Adds a light grey border around the div */
+    background-color: #f9f9f9; /* Light grey background for better visibility */
+    max-height: 300px; /* Limits the maximum height of the list */
+    overflow-y: auto; /* Adds a scrollbar if the content is too long */
+    width: 95%; /* Sets the width of the list to 90% of its container */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Adds a subtle shadow for depth */
+    border-radius: 5px; /* Rounds the corners of the div */
+}

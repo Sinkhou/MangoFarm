@@ -26,6 +26,14 @@
     margin-bottom: 10px; /* Adjust as needed */
 }
 
+#HS-weatherTableContainer2 {
+    border: 1px solid black;
+    height: 72px; /* Or any height that fits your design */
+    overflow-y: auto;
+    margin-bottom: 10px; /* Adjust as needed */
+}
+
+
 #HS-weatherTable {
     width: 100%;
     border-collapse: collapse;
@@ -46,17 +54,23 @@
     top: 0;
 }
 
+.HS-deletebuton {
+    background-color: red;
+    margin-left: 200px;
+}
+
 #HS-homescreen_button_container {
     display: flex;           
     flex-direction: column;   
     justify-content: flex-end;
+    align-items: center;
     height: 10vh;            
     margin-bottom: 100px;
     width: 100%;
 }
 
 #HS-homescreen_button {
-    width: 30%;
+    width: 55%;
     padding: 10px;
     border: none;
     background-color: #2C4636;
@@ -83,6 +97,12 @@ th {
 button {
     background-color: #2C4636;
     color: white;
+    border-radius: 5px;
+}
+
+.selected-row {
+    background-color: #007BFF; /* 藍色背景 */
+    color: white; /* 白色文字 */
 }
 
 a {
@@ -102,15 +122,15 @@ h1, h2 {
 
 /* phone */
 @media (max-width: 100px) {
-    h1, h2 {
-        font-size: 16px;
-    }
-    th, td {
-        padding: 4px;  /* smaller screen */
-    }
     button {
         font-size: 10px;  
         padding: 5px;  
         margin: 2px 0;  
+    }
+}
+
+@media (max-width: 1000px) {
+    #HS-weatherTableContainer2 {
+        height: 135px; 
     }
 }

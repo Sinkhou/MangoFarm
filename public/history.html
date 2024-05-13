@@ -26,15 +26,15 @@
         </div>
     
         <h1>Historical Data</h1>
-        <p>Weather</p>
         <div>
-            <div id="HS-weatherTableContainer" style="height: 200px; overflow-y: auto;">
-                <table id="HS-weatherTable">
+            <div id="HS-weatherTableContainer" style="height: 300px; overflow-y: auto;">
+                <table id="HS-weatherTable1">
                     <thead>
                         <tr>
+                            <th>Location</th>
+                            <th>Time</th>
                             <th>Condition</th>
                             <th>Humidity</th>
-                            <th>Local Time</th>
                             <th>Pressure</th>
                             <th>Temperature</th>
                             <th>UV Index</th>
@@ -42,27 +42,36 @@
                         </tr>
                     </thead>
                     <tbody id="weatherData">
-                        <!-- Data rows will be inserted here -->
                     </tbody>
                 </table>
+                 
             </div>
-            <button onclick="loadWeatherData()">Update</button> 
-            <p>Activity</p>
-        
-            <div style="height: 200px; overflow-y: auto;">
-                <table id="HS-weatherTable">
+            <div style="margin-bottom:20px ;">
+                <button onclick="loadWeatherData()">Update</button>
+                <button id="loadDataButton">Load</button>
+                <button class="HS-deletebuton" id="deleteButton">Delete</button>              
+                <div style="margin-top: 20px;">
+                    <input id="locationInput" type="text" placeholder="Enter location">
+                    <input id="dateInput" type="text" placeholder="Enter date (YYYY-MM-DD)">
+                    <button onclick="filterTable()">Filter Data</button>
+                </div>    
+            </div>
+            <div id="HS-weatherTableContainer2">
+                <table id="HS-weatherTable2">
                     <thead>
                         <tr>
-                            <th>Time</th>
-                            <th>Field</th>
-                            <th>Action</th>
+                            <th>Air Quality (PM2.5)</th>
+                            <th>Soil Moisture(%)</th>
+                            <th>Light Intensity</th>
+                            <th>Water Quality(p.H)</th>
+                            <th>Disease Recognizing</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Data rows will be inserted here -->
+                    <tbody id="weatherData2">
                     </tbody>
                 </table>
             </div>
+            
         </div>
         <div id="HS-homescreen_button_container">
             <button id="HS-homescreen_button" onclick="window.location.href='dashboard.html'">Homescreen</button>

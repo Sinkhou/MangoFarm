@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mango Farm App - Environmental Monitoring</title>
+    <link rel="stylesheet" href="farmland.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="farmland.js"></script>
+</head>
+
+<body>
+    <div id="header"></div>
+    <main>
+        <div class="MP-main_container">
+            <div id="MP-map_container">  
+                <div id="map" ></div>
+                <div id="MP-map_button">
+                    <div>
+                        <input id="lat" type="text" placeholder="Enter latitude" />
+                        <input id="lng" type="text" placeholder="Enter longitude" />
+                    </div>
+                    <div>
+                        <button onclick="searchPlace()">Search</button>
+                        <button onclick="promptForName()">Save Location</button>
+                        <button onclick="clearAllInputs()">Clear</button>
+                    </div>
+                </div>
+            </div>
+            <div id="inputDialog" style="display: none;">
+                <input type="text" id="customName" placeholder="Enter a custom name">
+                <button onclick="saveLocation()">Submit</button>
+                <button onclick="hideDialog()">Cancel</button>
+                <div id="locality"></div>
+            </div>
+            <div id="MP-map_info">
+                <div id="locationsList" class="locations-panel"></div>
+                <div>    
+                    <button style="background-color: red;" onclick="handleDelete()">Delete</button>
+                    <button onclick="loadLocations()">Update</button>
+                </div>
+                <div id="MP-homescreen_button_container">
+                    <button id="MP-homescreen_button" onclick="window.location.href='dashboard.html'">Homescreen</button>
+                </div>
+            </div>
+        </div>    
+    </main>
+    <div id="footer"></div>
+    <script src="include.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmbUjB_P5EJpAHca2VCKvoglSehYBJT80&callback=initMap"></script>
+</body>
+
+</html>
