@@ -1,5 +1,5 @@
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey('SG.tUkMRtMmReWiFgY7cYEOJA.I4-cmx4JrzSyFV31Rw7K629twkhsUNnV2LlqQZrAvZUz');
+sgMail.setApiKey('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');
 
 function sendEmail(to, subject, text) {
     const msg = {
@@ -9,10 +9,11 @@ function sendEmail(to, subject, text) {
         text: text,
     };
 
-    sgMail.send(msg).then(() => {
+    return sgMail.send(msg).then(() => {
         console.log('Email sent successfully');
     }).catch(error => {
         console.error('Error sending email:', error);
+        throw error;
     });
 }
 

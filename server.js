@@ -8,20 +8,32 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+// 测试路由
+app.get('/test-email', (req, res) => {
+    sendEmail('test@example.com', 'Test Subject', 'This is a test email.')
+        .then(() => res.send('Test email sent successfully'))
+        .catch(error => res.status(500).send('Failed to send test email: ' + error.message));
+});
+
 app.post('/send-reminder-email', (req, res) => {
-    const { to, subject, text, date, time } = req.body; // 前端需要提供完整的日期和时间
+    const { to, subject, text, date, time } = req.body;
 
-    // 将日期和时间组合成JavaScript Date对象
+    if (!to || !subject || !text || !date || !time) {
+        return res.status(400).send('All fields are required.');
+    }
+
     const scheduledDate = new Date(`${date}T${time}`);
-
-    // 计算延迟时间
     const delay = scheduledDate.getTime() - Date.now();
 
     if (delay > 0) {
         setTimeout(() => {
             sendEmail(to, subject, text)
-                .then(() => console.log('Email sent successfully'))
-                .catch(error => console.error('Failed to send email:', error));
+                .then(() => {
+                    console.log('Email sent successfully');
+                })
+                .catch(error => {
+                    console.error('Failed to send email:', error);
+                });
         }, delay);
 
         res.status(200).send(`Email scheduled to be sent at ${scheduledDate}`);
@@ -30,7 +42,7 @@ app.post('/send-reminder-email', (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 15000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
