@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const db = firebase.firestore();
 
-    // Function to send reminders
     window.sendReminder = function() {
         const title = document.getElementById('reminder-title').value.trim();
         const email = document.getElementById('reminder-email').value.trim();
@@ -30,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
-    // Send an email notification
     function sendEmailNotification(email, title, date, time) {
         fetch('http://localhost:3000/send-reminder-email', {
             method: 'POST',
@@ -40,14 +38,15 @@ document.addEventListener('DOMContentLoaded', function() {
             body: JSON.stringify({
                 to: email,
                 subject: 'Reminder Notification',
-                text: `Hi, you have a reminder for: ${title} on ${date} at ${time}.`
+                text: `Hi, you have a reminder for: ${title} on ${date} at ${time}.`,
+                date: date,
+                time: time
             })
         }).then(response => response.text())
         .then(data => console.log("Email sent successfully:", data))
         .catch(error => console.error('Error sending email:', error));
     }
 
-    // Function to load past reminders
     function loadPastReminders() {
         const container = document.getElementById('past-reminders');
         if (!container) {

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supermarket Product Categories</title>
+<link rel="stylesheet" href="mingxu.css">
+<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
+<script src="firebase-config.js"></script>
+</head>
+<body>
+
+<div id="header"></div>
+
+<div class="categories">
+    <h2>Product Categories</h2>
+    <ul>
+        <li>Mango</li>
+        <li>Fertilizer</li>
+        <li>Pesticide</li>
+        <li>Tools</li>
+        <li>Add Product</li> <!-- Added "Add Product" option -->
+    </ul>
+</div>
+
+<div class="container">
+    <div class="products">
+        <h2>Product List</h2>
+        <!-- Product display area -->
+        <div class="products-display">
+            <!-- Mango -->
+            <div class="mango products-list">
+                <div class="product" data-name="Apple">
+                    <p>Alphonso</p>
+                    <p>Quantity: <input type="number" class="quantity" value="10"></p>
+                    <p>Unit: kg</p> <!-- Added unit -->
+                    <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
+                    <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
+                    <button onclick="deleteProduct(this)">Delete</button> <!-- Added delete button -->
+                </div>
+                <div class="product" data-name="Banana">
+                    <p>Haden</p>
+                    <p>Quantity: <input type="number" class="quantity" value="15"></p>
+                    <p>Unit: kg</p> <!-- Added unit -->
+                    <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
+                    <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
+                    <button onclick="deleteProduct(this)">Delete</button> <!-- Added delete button -->
+                </div>
+            </div>
+            
+            <!-- Fertilizer -->
+            <div class="fertilizer products-list" style="display: none;">
+                <div class="product" data-name="Tomato">
+                    <p>Urea</p>
+                    <p>Quantity: <input type="number" class="quantity" value="20"></p>
+                    <p>Unit: pack</p> <!-- Added unit -->
+                    <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
+                    <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
+                    <button onclick="deleteProduct(this)">Delete</button> <!-- Added delete button -->
+                </div>
+                <div class="product" data-name="Carrot">
+                    <p>DAP</p>
+                    <p>Quantity: <input type="number" class="quantity" value="25"></p>
+                    <p>Unit: pack</p> <!-- Added unit -->
+                    <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
+                    <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
+                    <button onclick="deleteProduct(this)">Delete</button> <!-- Added delete button -->
+                </div>
+            </div>
+            
+            <!-- Pesticide -->
+            <div class="pesticide products-list" style="display: none;">
+                <div class="product" data-name="Coke">
+                    <p>Chloramphenicol</p>
+                    <p>Quantity: <input type="number" class="quantity" value="30"></p>
+                    <p>Unit: bottle</p> <!-- Added unit -->
+                    <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
+                    <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
+                    <button onclick="deleteProduct(this)">Delete</button> <!-- Added delete button -->
+                </div>
+                <div class="product" data-name="Tea">
+                    <p>Benomyl</p>
+                    <p>Quantity: <input type="number" class="quantity" value="35"></p>
+                    <p>Unit: pack</p> <!-- Added unit -->
+                    <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
+                    <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
+                    <button onclick="deleteProduct(this)">Delete</button> <!-- Added delete button -->
+                </div>
+            </div>
+            
+            <!-- Tools -->
+            <div class="tools products-list" style="display: none;">
+                <div class="product" data-name="Chips">
+                    <p>Shovel</p>
+                    <p>Quantity: <input type="number" class="quantity" value="40"></p>
+                    <p>Unit: quantity</p> <!-- Added unit -->
+                    <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
+                    <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
+                    <button onclick="deleteProduct(this)">Delete</button> <!-- Added delete button -->
+                </div>
+                <div class="product" data-name="Chocolate">
+                    <p>Fork</p>
+                    <p>Quantity: <input type="number" class="quantity" value="45"></p>
+                    <p>Unit: quantity</p> <!-- Added unit -->
+                    <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
+                    <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
+                    <button onclick="deleteProduct(this)">Delete</button> <!-- Added delete button -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Add product form -->
+        <div class="add-product-form" style="display: none;">
+            <h3>Add New Product</h3>
+            <input type="text" id="new-category" placeholder="Category">
+            <br>
+            <input type="text" id="new-product" placeholder="Product">
+            <br>
+            <input type="number" id="new-quantity" placeholder="Quantity">
+            <br>
+            <input type="text" id="new-unit" placeholder="Unit"> <!-- Added unit input field -->
+            <br>
+            <button onclick="addProduct()">Confirm</button>
+            <button onclick="cancelAdd()">Cancel</button> <!-- Added cancel button -->
+        </div>
+    </div>
+</div>
+
+<script>
+// Get add product form element
+const addProductForm = document.querySelector('.add-product-form');
+// Get product display area
+const productsDisplay = document.querySelector('.products-display');
+
+// Add product function
+function addProduct() {
+    const newCategory = document.getElementById('new-category').value;
+    const newProduct = document.getElementById('new-product').value;
+    const newQuantity = document.getElementById('new-quantity').value;
+    const newUnit = document.getElementById('new-unit').value; // Get unit value
+
+    // Create product list item
+    const newProductItem = createProductItem(newProduct, newQuantity, newUnit); // Pass unit value
+
+    // Find corresponding category list item
+    let categoryIndex = -1;
+    const categories = document.querySelectorAll('.categories li');
+    categories.forEach((category, index) => {
+        if (category.textContent === newCategory) {
+            categoryIndex = index;
+        }
+    });
+
+    if (categoryIndex !== -1) {
+        // Add product to the corresponding category's product list
+        const productsLists = document.querySelectorAll('.products-list');
+        productsLists[categoryIndex].appendChild(newProductItem);
+    } else {
+        // If category does not exist, create new category list item and add product
+        const newCategoryItem = document.createElement('li');
+        newCategoryItem.textContent = newCategory;
+        document.querySelector('.categories ul').insertBefore(newCategoryItem, document.querySelector('.categories ul').lastElementChild);
+
+        // Create corresponding product list
+        const newProductsList = document.createElement('div');
+        newProductsList.classList.add('products-list');
+
+        // Add product to corresponding product list
+        newProductsList.appendChild(newProductItem);
+
+        // Add new category list item and product list to the page
+        productsDisplay.appendChild(newProductsList);
+    }
+
+    // Clear form content
+    document.getElementById('new-category').value = '';
+    document.getElementById('new-product').value = '';
+    document.getElementById('new-quantity').value = '';
+    document.getElementById('new-unit').value = ''; // Clear unit input field
+
+    // Save product quantity to local storage
+    saveProductData();
+
+    // Hide add product form
+    addProductForm.style.display = 'none';
+
+    // Update event listeners
+    updateCategoryClickEvent();
+}
+
+// Cancel adding product
+function cancelAdd() {
+    // Clear form content
+    document.getElementById('new-category').value = '';
+    document.getElementById('new-product').value = '';
+    document.getElementById('new-quantity').value = '';
+    document.getElementById('new-unit').value = ''; // Clear unit input field
+
+    // Hide add product form
+    addProductForm.style.display = 'none';
+}
+
+// Create product list item
+function createProductItem(productName, quantity, unit) { // Add unit parameter
+    const newProductItem = document.createElement('div');
+    newProductItem.classList.add('product');
+    newProductItem.setAttribute('data-name', productName); // Set product name attribute
+    newProductItem.innerHTML = `<p>${productName}</p><p>Quantity: <input type="number" class="quantity" value="${quantity}"></p><p>Unit: ${unit}</p>`; // Display unit
+    const increaseBtn = document.createElement('button');
+    increaseBtn.textContent = '+1';
+    increaseBtn.onclick = function() {
+        increaseQuantity(this);
+    };
+    newProductItem.appendChild(increaseBtn);
+    const decreaseBtn = document.createElement('button');
+    decreaseBtn.textContent = '-1';
+    decreaseBtn.onclick = function() {
+        decreaseQuantity(this);
+    };
+    newProductItem.appendChild(decreaseBtn);
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.onclick = function() {
+        deleteProduct(this);
+    };
+    newProductItem.appendChild(deleteBtn);
+    return newProductItem;
+}
+
+// Increase quantity
+function increaseQuantity(button) {
+    const input = button.parentElement.querySelector('.quantity');
+    input.value = parseInt(input.value) + 1;
+    saveProductData(); // Save product quantity to local storage
+}
+
+// Decrease quantity
+function decreaseQuantity(button) {
+    const input = button.parentElement.querySelector('.quantity');
+    if (parseInt(input.value) > 0) {
+        input.value = parseInt(input.value) - 1;
+        saveProductData(); // Save product quantity to local storage
+    }
+}
+
+// Delete product
+function deleteProduct(button) {
+    const productItem = button.parentElement;
+    const productList = productItem.parentElement;
+    productList.removeChild(productItem);
+    saveProductData(); // Save product quantity to local storage
+}
+
+// Save product quantity to local storage
+function saveProductData() {
+    const products = document.querySelectorAll('.product');
+    const productData = {};
+    products.forEach(product => {
+        const name = product.getAttribute('data-name');
+        const quantity = product.querySelector('.quantity').value;
+        productData[name] = quantity;
+    });
+    localStorage.setItem('productData', JSON.stringify(productData));
+}
+
+// Load product quantity data from local storage
+function loadProductData() {
+    const productData = localStorage.getItem('productData');
+    if (productData) {
+        const products = document.querySelectorAll('.product');
+        const parsedData = JSON.parse(productData);
+        products.forEach(product => {
+            const name = product.getAttribute('data-name');
+            if (parsedData[name]) {
+                product.querySelector('.quantity').value = parsedData[name];
+            }
+        });
+    }
+}
+
+// Update category click event
+function updateCategoryClickEvent() {
+    const categories = document.querySelectorAll('.categories li');
+    categories.forEach((category, index) => {
+        category.addEventListener('click', () => {
+            if (category.textContent === "Add Product") {
+                // Show add product form
+                addProductForm.style.display = 'block';
+                // Hide product display area
+                productsDisplay.style.display = 'none';
+            } else {
+                // Hide add product form
+                addProductForm.style.display = 'none';
+                // Show product display area
+                productsDisplay.style.display = 'block';
+
+                // Hide all product lists
+                const productsLists = document.querySelectorAll('.products-list');
+                productsLists.forEach(list => {
+                    list.style.display = 'none';
+                });
+
+                // Show product list of current category
+                productsLists[index].style.display = 'block';
+            }
+        });
+    });
+}
+
+// Initialize event listeners when the page is loaded
+updateCategoryClickEvent();
+loadProductData(); // Load product quantity data from local storage
+</script>
+
+<div id="footer"></div>
+<script src="include.js"></script> <!-- Script to include header and footer -->
+
+</body>
+</html>

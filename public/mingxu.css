@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.categories {
+    width: 200px; /* 左侧宽度 */
+    background-color: #f2f2f2;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    height: 100%;
+}
+
+.categories h2 {
+    font-size: 18px; /* 字体大小 */
+    font-weight: bold; /* 加粗 */
+    color: #2C4636; /* 绿色 */
+}
+
+.categories ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0; /* 类别之间的间距 */
+}
+
+.categories li {
+    padding: 10px 0;
+    cursor: pointer;
+    font-size: 16px; /* 字体大小 */
+    font-weight: bold; /* 加粗 */
+    color: #2C4636; /* 绿色 */
+}
+
+.products {
+    padding: 20px;
+    text-align: center;
+    margin-left: 200px; /* 调整为左侧宽度 */
+    width: calc(100% - 200px); /* 右侧宽度为剩余空间 */
+}
+
+.product {
+    display: inline-block;
+    width: 200px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ddd;
+    color: #2C4636; /* 绿色 */
+}
+
+@media only screen and (max-width: 926px) {
+    /* 适应 iPhone 14 Pro Max 的宽度 */
+    .categories {
+        width: 150px; /* 调整左侧宽度 */
+        padding: 10px;
+    }
+
+    .products {
+        margin-left: 150px; /* 调整右侧边距 */
+        width: calc(100% - 150px); /* 右侧宽度为剩余空间 */
+    }
+
+    .product {
+        width: 150px; /* 调整商品宽度 */
+    }
+}
+
+/* 新增样式 */
+.add-product-form {
+    display: none;
+    text-align: center;
+}
+
+.add-product-form input {
+    margin-bottom: 5px; /* 调整间距 */
+    width: 150px; /* 调窄输入框 */
+    display: block; /* 每个输入框独占一行 */
+    margin: 5px auto; /* 居中显示 */
+}
+
+.add-product-form button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.categories li {
+    border-bottom: 1px solid #2C4636; /* 添加底部边框 */
+    padding: 10px;
+    cursor: pointer;
+    color: #2C4636; /* 修改文字颜色 */
+    font-size: 16px; /* 修改字体大小 */
+    font-weight: bold; /* 加粗字体 */
+}
+
+.categories li a {
+    text-decoration: none; /* 移除链接的下划线 */
+    color: inherit; /* 继承父元素的文字颜色 */
+    font-size: inherit; /* 继承父元素的字体大小 */
+    font-weight: inherit; /* 继承父元素的字体粗细 */
+}

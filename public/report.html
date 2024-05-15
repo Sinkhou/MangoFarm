@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mango activity report</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* style.css */
+        .send-announcement-form {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #2C4636;
+            color: white;
+            margin-top: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow-x: auto;
+            display: block;
+        }
+
+        th, td {
+            border: 1px solid #0a0a0a;
+            text-align: center;
+            padding: 8px;
+            font-size: 16px; /* Increased font size */
+        }
+        th {
+            background-color: #eae9e9;
+        }
+        .date-col { /* Special styling for date columns to increase width */
+            width: 150px;
+        }
+
+        #loading {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="MangoFarmApp.png" alt="Mango Farm App Logo">
+    </header>
+    <main>
+        <div class="container">
+            <div id="loading">Loading...</div>
+            <table id="jsonTable">
+                <thead>
+                    <tr>
+                        <th colspan="1" rowspan="3" class="date-col">Field</th>
+                        <th colspan="1" rowspan="3">Locality</th>
+                        <th colspan="12" rowspan="1">Activity</th>
+                    </tr>
+                    <tr>
+                        <th colspan="3">Sowing</th>
+                        <th colspan="3">Fertilize</th>
+                        <th colspan="3">Irrigate</th>
+                        <th colspan="3">Pesticide</th>
+                    </tr>
+                    <tr>
+                        <th>Type</th>
+                        <th>Cycle</th>
+                        <th class="date-col">Date</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th class="date-col">Date</th>
+                        <th>Time</th>
+                        <th>Cycle</th>
+                        <th>Duration</th>
+                        <th>Time</th>
+                        <th>Cycle</th>
+                        <th>Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <button class="send-announcement-form" onclick="window.location.href='dashboard.html'">Homescreen</button>
+        </div>
+
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Mango Farm App. All rights reserved.</p>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
+    <Script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyAN_OFSyfnSAQ7-_j72Di-pAC1YuI2njKU",
+            authDomain: "mangofarm-752a6.firebaseapp.com",
+            projectId: "mangofarm-752a6",
+            storageBucket: "mangofarm-752a6.appspot.com",
+            messagingSenderId: "261621325120",
+            appId: "1:261621325120:web:ee4c25610bfcd30f90aea5"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+
+
+        const jsonData = [
+            // {
+            //     label: "field1",
+            //     locality: "gsnjadijcox11",
+            //     activity: {
+            //         sowing: [
+            //             {Cycle: "Quarterly", Type: "Hapus", Date: "2024-05-25"}
+            //         ],
+            //         fertilize: [
+            //             {Amount: "200kg", Type: "Nitrogen", Date: "2024-05-30"}
+            //         ],
+            //         irrigate: [
+            //             {Cycle: "Weekly", Type: "Drip", Date: "2024-06-01"}
+            //         ],
+            //         pesticide: [
+            //             {Amount: "100L", Type: "Insecticide", Date: "2024-06-05"}
+            //         ]
+            //     }
+            // },
+        ];
+
+        
+        document.getElementById('jsonTable').style.display = 'none';
+
+        document.addEventListener('DOMContentLoaded', function() { 
+            db.collection("map_edition").get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    if (doc.exists) {
+                        var data = doc.data()
+                        var object = {}
+                        object.label = data.label
+                        object.locality = data.locality
+                        object.activity = {
+                            sowing:[],
+                            fertilize:[],
+                            irrigate:[],
+                            pesticide:[]
+                        }
+                        jsonData.push(object)
+                    }
+                })
+                return db.collection("activity_seed_0").get()
+            })
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    if (doc.exists) {
+                        var data = doc.data()
+                        jsonData.forEach(eachJson=>{
+                            if(eachJson.label == data.Field){
+                                eachJson.activity.sowing.push({Type:data.Type,Cycle:data.Cycle,Date:data.Date})
+                            }
+                        })
+                        // console.log(data,jsonData)
+                    }
+                    // console.log(jsonData)
+                })
+                return db.collection("activity_fertilize_0").get()
+            })
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    if (doc.exists) {
+                        var data = doc.data()
+                        jsonData.forEach(eachJson=>{
+                            if(eachJson.label == data.Field){
+                                eachJson.activity.fertilize.push({Type:data.Type,Amount:data.Amount,Date:data.Date})
+                            }
+                        })
+                        // console.log(data,jsonData)
+                    }
+                    // console.log(jsonData)
+                })
+                return db.collection("activity_irri_0").get()
+            })
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    if (doc.exists) {
+                        var data = doc.data()
+                        jsonData.forEach(eachJson=>{
+                            if(eachJson.label == data.Field){
+                                eachJson.activity.irrigate.push({Time:data.Time,Cycle:data.Cycle,Duration:data.Count})
+                            }
+                        })
+                        // console.log(data,jsonData)
+                    }
+                    // console.log(jsonData)
+                })
+                return db.collection("activity_pest_0").get()
+            })
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    if (doc.exists) {
+                        var data = doc.data()
+                        jsonData.forEach(eachJson=>{
+                            if(eachJson.label == data.Field){
+                                eachJson.activity.pesticide.push({Time:data.Time,Cycle:data.Cycle,Duration:data.Count})
+                            }
+                        })
+                        // console.log(data,jsonData)
+                    }
+                })
+                    console.log(jsonData)
+                    populateTable()
+                    document.getElementById('loading').style.display = 'none'; // Hide loading text
+                    document.getElementById('jsonTable').style.display = 'block';
+            })
+            .catch(function(error) {
+                console.error("fail:", error);
+            });
+        });
+
+
+        
+        
+            function populateTable() {
+                const tableBody = document.getElementById('jsonTable').getElementsByTagName('tbody')[0];
+                jsonData.forEach(item => {
+                    const maxRows = Math.max(
+                        item.activity.sowing.length,
+                        item.activity.fertilize.length,
+                        item.activity.irrigate.length,
+                        item.activity.pesticide.length
+                    );
+                for (let i = 0; i < maxRows; i++) {
+                    const row = tableBody.insertRow();
+                    if (i === 0) {
+                        let cell = row.insertCell();
+                        cell.setAttribute('rowSpan', maxRows);
+                        cell.appendChild(document.createTextNode(item.label));
+
+                        cell = row.insertCell();
+                        cell.setAttribute('rowSpan', maxRows);
+                        cell.appendChild(document.createTextNode(item.locality));
+                    }
+                    
+                    // Populate sowing data
+                    appendActivityCells(row, item.activity.sowing, i, ['Type', 'Cycle', 'Date']);
+                    // Populate fertilizing data
+                    appendActivityCells(row, item.activity.fertilize, i, ['Type', 'Amount', 'Date']);
+                    // Populate irrigate data
+                    appendActivityCells(row, item.activity.irrigate, i, ['Time', 'Cycle', 'Duration']);
+                    // Populate pesticide data
+                    appendActivityCells(row, item.activity.pesticide, i, ['Time', 'Cycle', 'Duration']);
+                }
+            });
+        }
+
+        function appendActivityCells(row, activityArray, index, keys) {
+            if (index < activityArray.length) {
+                keys.forEach(key => {
+                    const cell = row.insertCell();
+                    cell.appendChild(document.createTextNode(activityArray[index][key] || ''));
+                    if (key === 'Date') {
+                        cell.classList.add('date-col'); // Add class to date columns dynamically
+                    }
+                });
+            } else {
+                keys.forEach(() => {
+                    row.insertCell(); // Append empty cells if no data
+                });
+            }
+        }
+
+
+
+
+    </Script>
+
+</body>
+</html>
+
+

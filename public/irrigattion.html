@@ -7,14 +7,13 @@
     <link rel="stylesheet" href="style.css">
     <style>
         /* style.css */
-    body {
+        body {
         font-family: Arial, sans-serif;
     }
     
     .container {
         width: 90%;
         max-width: 600px;
-        margin: 20px auto;
         padding: 20px;
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -22,7 +21,7 @@
     }
     
     h1 {
-        color: green;
+        color: #2C4636;
     }
     
     .section {
@@ -45,24 +44,46 @@
         cursor: pointer;
     }
     
-    table {
-        width: 100%;
-        border-collapse: collapse;
+    .table-container {
+        overflow-x: auto; 
     }
-    
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
+
+    #irrigation-log {
+        width: 100%; 
+        /* min-width: 600px;  */
+        border-collapse: collapse; 
+        border: 2px solid #000000;
     }
-    
-    th {
-        background-color: #f2f2f2;
+
+    #irrigation-log button{
+        padding: 5px 10px;
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
     }
+
+    #irrigation-log th, #irrigation-log td {
+        min-width: 100px; 
+        max-width: 120px; 
+        border: 1px solid #ccc; 
+        text-align: left; 
+        padding: 8px; 
+        text-align: center; 
+        vertical-align: middle;
+    }
+
+    #irrigation-log thead th {
+        background-color: #f4f4f4; /* 表头背景颜色 */
+        position: sticky; /* 表头固定 */
+        top: 0; /* 顶部对齐 */
+    }
+
     
     #save-settings {
         padding: 10px 20px;
-        background-color: green;
+        background-color: #2C4636;
         color: white;
         border: none;
         border-radius: 4px;
@@ -70,7 +91,7 @@
     }
 
     #water-once {
-        padding: 10px 20px;
+        padding: 5px 10px;
         background-color: red;
         color: white;
         border: none;
@@ -86,6 +107,16 @@
         width: auto;
         max-width: 10vw;
     }
+
+    .button-container {
+        display: flex;
+        justify-content: space-between; /* Aligns children (buttons) to the opposite sides */
+        padding: 10px; /* Adds some padding inside the container */
+    }
+
+    .button-container button {
+        flex: 0 1 auto; /* Buttons can shrink but not grow */
+    }
     </style>
 </head>
 <body>
@@ -98,10 +129,17 @@
             <p>make sure suitable water provided for optimizing growing.</p>
 
             <div class="section">
+                <label for="field-select">Field selection:</label>
+                <select id="field-select">
+                    
+                </select>
+            </div>
+
+            <div class="section">
                 <label for="irrigation-cycle">irrigation cycle:</label>
                 <select id="irrigation-cycle">
                     <option value="daily">everyday</option>
-                    <option value="every-other-day">per two days</option>
+                    <option value="per two days">per two days</option>
                     <option value="weekly">weekly</option>
                 </select>
             </div>
@@ -121,22 +159,29 @@
 
             <div class="section">
                 <h2>irrigation records</h2>
-                <table id="irrigation-log">
-                    <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>duration</th>
-                    </tr>
-                    <!-- <tr>
-                        <td>April 30, 2024</td>
-                        <td>11:18:37 PM</td>
-                    </tr> -->
-                </table>
+                <div class="table-container">
+                    <table id="irrigation-log">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>duration</th>
+                                <th>Operation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <!-- <tr>
+                            <td>April 30, 2024</td>
+                            <td>11:18:37 PM</td>
+                        </tr> -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div>
-                <button id="water-once" onclick="saveIrrigationTimestamp()">water once</button>
-                <button id="save-settings" onclick="collectData()">save settings</button>
-                <button id="save-settings" onclick="window.history.back()">back</button>
+            <div class="button-container">
+                <button id="save-settings" onclick="collectData()">Save</button>
+                <button id="save-settings" onclick="window.history.back()">Back</button>
             </div>
         </div>
     </main>
@@ -159,6 +204,29 @@
         firebase.initializeApp(firebaseConfig);
         var db = firebase.firestore();
 
+        document.addEventListener('DOMContentLoaded', function() { 
+            db.collection("map_edition").get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    if (doc.exists) {
+                        console.log(doc.data());
+
+                        const selectElement = document.getElementById('field-select');
+
+                        const option = document.createElement('option');  
+                        option.value = doc.data().label;  
+                        option.textContent = `${doc.data().label} - ${doc.data().locality}`;  
+                        selectElement.appendChild(option);
+                    
+                    }
+                })
+            })
+            .catch(function(error) {
+                console.error("fail:", error);
+            });
+        });
+
+
         function incrementCount() {
             var countInput = document.getElementById('irrigation-count');
             countInput.value = parseInt(countInput.value) + 1;
@@ -171,30 +239,16 @@
             }
         }
 
-        function saveIrrigationTimestamp() {
-            var response = confirm("Are you sure to irrigate once?");
-            var timestamp = firebase.firestore.Timestamp.now();
-            response&&db.collection("activity_irri_0").add({
-                set_time: timestamp,
-                duration: document.getElementById('irrigation-count').value
-            })
-            .then(function() {
-                addRow(formatTimestamp(timestamp).date, formatTimestamp(timestamp).time);
-                // alert("save success！");
-            })
-            .catch(function(error) {
-                console.error("save error: ", error);
-            });
-        }
+        function getIrrigationRecord() {
+            var tbody = document.getElementById('irrigation-log').getElementsByTagName('tbody')[0];
+            tbody.innerHTML = '';
 
-        function getIrrigationTimestamp() {
             db.collection("activity_irri_0").get()
             .then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
                     if (doc.exists) {
-                        var data = formatTimestamp(doc.data().set_time)
-                        addRow(data.date, data.time, doc.data().duration);
-                        // console.log("Timestamp data:", doc.data());
+                        var data = doc.data()
+                        addRow(data.Field,data.Cycle,data.Time,data.Count,doc.id);
                     } else {
                         console.log("No such document!");
                     }
@@ -205,43 +259,102 @@
             });
         }
 
-        getIrrigationTimestamp()
+        getIrrigationRecord()
 
-        function formatTimestamp(ts) {
-            const date = new Date(ts.seconds * 1000 + ts.nanoseconds / 1000000);
-
-            const formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-            const formattedTime = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-
-            // console.log(`Date: ${formattedDate}; Time: ${formattedTime}`);
-            // 结合日期和时间
-            return { date: formattedDate, time: formattedTime };
-        }
-
-        function addRow(date, time, duration) {
-            const table = document.getElementById('irrigation-log');
+        function addRow(field,cycle, time, count,id) {
+            const table = document.getElementById('irrigation-log').getElementsByTagName('tbody')[0];
 
             const row = document.createElement('tr');
+            const FieldCell = document.createElement('td');
             const dateCell = document.createElement('td');
             const timeCell = document.createElement('td');
             const duraCell = document.createElement('td');
+            const deleteCell = document.createElement('td');
 
-            dateCell.textContent = date;
+            var deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            // deleteButton.setAttribute('onclick', `delete_row(${id})`);
+            deleteButton.addEventListener('click', function() {
+                delete_row(id,this);
+            });
+
+            FieldCell.textContent = field;
+            dateCell.textContent = cycle;
             timeCell.textContent = time;
-            if(duration){
-                duraCell.textContent = `${duration} hours`;
-            }else{
-                duraCell.textContent = `${document.getElementById('irrigation-count').value} hours`
-            }
+            duraCell.textContent = count;
+            deleteCell.appendChild(deleteButton)
 
+            row.appendChild(FieldCell);
             row.appendChild(dateCell);
             row.appendChild(timeCell);
             row.appendChild(duraCell);
+            row.appendChild(deleteCell);
 
             table.appendChild(row);
         }
 
+        function delete_row(id,node){
+            // console.log(id,node)
+            var response = confirm("Delete the item?");
+            if(response){
+                var row = node.parentNode.parentNode;
+                row.parentNode.removeChild(row);
+                db.collection("activity_irri_0").doc(id).delete()
+            }
+        }
+
+
+
+        // function saveIrrigationTimestamp() {
+        //     var response = confirm("Are you sure to irrigate once?");
+        //     var timestamp = firebase.firestore.Timestamp.now();
+        //     response&&db.collection("activity_irri_0").add({
+        //         set_time: timestamp,
+        //         duration: document.getElementById('irrigation-count').value
+        //     })
+        //     .then(function() {
+        //         addRow(formatTimestamp(timestamp).date, formatTimestamp(timestamp).time);
+        //         // alert("save success！");
+        //     })
+        //     .catch(function(error) {
+        //         console.error("save error: ", error);
+        //     });
+        // }
+
+        // function getIrrigationTimestamp() {
+        //     db.collection("activity_irri_0").get()
+        //     .then(function(querySnapshot) {
+        //         querySnapshot.forEach(function(doc) {
+        //             if (doc.exists) {
+        //                 var data = formatTimestamp(doc.data().set_time)
+        //                 addRow(data.date, data.time, doc.data().duration);
+        //                 // console.log("Timestamp data:", doc.data());
+        //             } else {
+        //                 console.log("No such document!");
+        //             }
+        //         }) 
+        //     })
+        //     .catch(function(error) {
+        //         console.error("fail:", error);
+        //     });
+        // }
+
+
+        // function formatTimestamp(ts) {
+        //     const date = new Date(ts.seconds * 1000 + ts.nanoseconds / 1000000);
+
+        //     const formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        //     const formattedTime = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+
+        //     // console.log(`Date: ${formattedDate}; Time: ${formattedTime}`);
+        //     // 结合日期和时间
+        //     return { date: formattedDate, time: formattedTime };
+        // }
+
+
         function collectData() {
+            var fieldSelect = document.getElementById('field-select').value;
+
             var irrigationCycle = document.getElementById('irrigation-cycle').value;
 
             var irrigationTime = document.getElementById('irrigation-time').value;
@@ -249,19 +362,16 @@
             var irrigationCount = document.getElementById('irrigation-count').value;
 
             var irrigationSettings = {
-                "irrigationCycle": irrigationCycle,
-                "irrigationTime": irrigationTime,
-                "irrigationCount": irrigationCount
+                "Field": fieldSelect,
+                "Cycle": irrigationCycle,
+                "Time": irrigationTime,
+                "Count": `${irrigationCount} hours`
             };
 
-            db.collection("activity_irri_1").doc('1').set({
-                "irrigationCycle": irrigationCycle,
-                "irrigationTime": irrigationTime,
-                "irrigationCount": irrigationCount
-            })
+            db.collection("activity_irri_0").add(irrigationSettings)
             .then(function() {
-                alert("setting save success！");
-                window.history.back();
+                alert("save success！");
+                getIrrigationRecord()
             })
             .catch(function(error) {
                 console.error("save error: ", error);
@@ -269,23 +379,8 @@
 
         }
 
-        function getIrrigationData() {
-            db.collection("activity_irri_1").doc('1').get()
-            .then(function(doc){
-                if (doc.exists) {
-                    // console.log(doc.data())
-                    document.getElementById('irrigation-cycle').value = doc.data().irrigationCycle;
-                    document.getElementById('irrigation-time').value = doc.data().irrigationTime;
-                    document.getElementById('irrigation-count').value = doc.data().irrigationCount;
-                } else {
-                    console.log("No such document!");
-                }
-            }) 
-            .catch(function(error) {
-                console.error("fail:", error);
-            });
-        }
-        getIrrigationData()
+
+        
     </Script>
 
 </body>

@@ -1,18 +1,99 @@
-form input, form select, form button {
-    margin: 10px;
-    padding: 8px;
-    width: 90%;
+/* Ensure parent has relative positioning */
+#equipmentForm {
+    position: relative;
 }
 
+/* Common styles for all form elements */
+#equipmentForm input,
+#equipmentForm select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    position: relative; /* Ensure proper positioning for pseudo-element */
+}
+
+/* Date input wrapper */
+.date-input-wrapper {
+    position: relative;
+}
+
+/* Hide the default date icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 10px;
+    z-index: 2;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+/* Pseudo-placeholder style */
+.date-input-wrapper input[type="date"][data-placeholder]::before {
+    content: attr(data-placeholder);
+    color: #999;
+    position: absolute;
+    top: 50%;
+    right: 50px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+/* Hide pseudo-placeholder when input has a value or is focused */
+.date-input-wrapper input[type="date"]:focus::before,
+.date-input-wrapper input[type="date"]:not(:empty)::before {
+    content: "";
+}
+/* Style for the Add Equipment button */
+.button-style {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #2C4636;
+    color: white;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Style for the Delete button */
+.delete-button {
+    padding: 5px 10px;
+    background-color: #ff4444;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Ensure consistent spacing and alignment for form */
+#equipmentForm {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#equipmentList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
 
 #equipmentList li {
-    list-style: none;
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: calc(100% - 50px);
-    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
 }
 
+#equipmentList li .equipment-info {
+    flex-grow: 1;
+    line-height: 1.5;
+}
 
+#equipmentList li .delete-button {
+    margin-left: 10px;
+}
