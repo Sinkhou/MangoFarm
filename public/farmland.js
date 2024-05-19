@@ -70,8 +70,19 @@ function saveLocation() {
         alert("Please enter a name.");
         return;
     }
+    const scale = prompt("Please enter a number for the farmland scale(m²) :", "");
+    if (!scale || isNaN(scale)) {
+        alert("You must enter a numeric scale to save the location.");
+        return;
+    }
 
-    const markerData = { lat: lat, lng: lng, label: customName, locality: localityName };
+    const markerData = {
+        lat: lat,
+        lng: lng,
+        label: customName,
+        locality: localityName,
+        scale: scale // 新增範圍欄位
+    };
     const monitoringData = { air: "null", disease: "null", light: "null", soil: "null", water: "null" };
 
     db.collection("map_edition").doc(customName).set(markerData)
@@ -113,31 +124,36 @@ function addPermanentMarker(data) {
 
 //delet the dataset of location
 function deleteLocation(docId) {
-    db.collection("map_edition").doc(docId).delete().then(() => {
-        console.log("Document successfully deleted!");
-        removeMarker(docId); 
-        loadLocations();
-        return db.collection("monitoring").doc(docId).delete();
-    })
-    .then(() => {
-        console.log("Monitoring data successfully deleted!");
-        return db.collection("weatherData").where("location", "==", docId).get();
-    })
-    .then(querySnapshot => {
-        // Create a batch to delete all found documents
-        const batch = db.batch();
-        querySnapshot.forEach(doc => {
-            batch.delete(doc.ref);
+    
+    if (confirm("Delete the location?")) {
+        db.collection("map_edition").doc(docId).delete().then(() => {
+            console.log("Document successfully deleted!");
+            removeMarker(docId);
+            loadLocations();
+            return db.collection("monitoring").doc(docId).delete();
+        })
+        .then(() => {
+            console.log("Monitoring data successfully deleted!");
+            return db.collection("weatherData").where("location", "==", docId).get();
+        })
+        .then(querySnapshot => {
+            const batch = db.batch();
+            querySnapshot.forEach(doc => {
+                batch.delete(doc.ref);
+            });
+            return batch.commit();
+        })
+        .then(() => {
+            console.log("Weather data successfully deleted!");
+        })
+        .catch((error) => {
+            console.error("Error removing documents: ", error);
         });
-        return batch.commit();
-    })
-    .then(() => {
-        console.log("Weather data successfully deleted!");
-    })
-    .catch((error) => {
-        console.error("Error removing documents: ", error);
-    });
+    } else {
+        console.log("Deletion cancelled by user.");
+    }
 }
+
 
 //location deleting
 function handleDelete() {
@@ -166,7 +182,7 @@ function loadLocations() {
         querySnapshot.forEach((doc) => {
             const data = doc.data();
             const div = document.createElement('div');
-            div.textContent = `${doc.id}: Lat: ${data.lat}, Lng: ${data.lng}, Location: ${data.locality}`;
+            div.textContent = `${doc.id}: Lat: ${data.lat}, Lng: ${data.lng}, Scale(m²): ${data.scale},  ${data.locality}`;
             div.onclick = function() {
                 if (selectedElement) {
                     selectedElement.classList.remove('selected');
