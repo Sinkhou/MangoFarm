@@ -53,15 +53,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to delete a announcement
     window.deleteAnnouncement = function(docId) {
-        const db = firebase.firestore();
-        db.collection('announcements').doc(docId).delete()
-            .then(() => {
-                console.log("Announcement deleted successfully");
-                loadPastAnnouncements(); // Reload to update the list
-            }).catch(error => {
-                console.error("Error deleting announcement: ", error);
-                alert("Failed to delete announcement.");
-            });
+        if (confirm("Delete this announcement?")) {
+            const db = firebase.firestore();
+            db.collection('announcements').doc(docId).delete()
+                .then(() => {
+                    console.log("Announcement deleted successfully");
+                    loadPastAnnouncements(); // Reload to update the list
+                }).catch(error => {
+                    console.error("Error deleting announcement: ", error);
+                    alert("Failed to delete announcement: " + error.message);
+                });
+        } else {
+            console.log("Announcement deletion cancelled.");
+        }
     };
+    
     loadPastAnnouncements();
 });

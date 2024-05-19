@@ -83,13 +83,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     window.deleteReminder = function(reminderId) {
-        db.collection('reminders').doc(reminderId).delete().then(() => {
-            console.log("Reminder successfully deleted!");
-            loadPastReminders(); // Refresh the list after deletion
-        }).catch((error) => {
-            console.error("Error removing reminder: ", error);
-        });
-    };
+        if (confirm("Delete this reminder?")) {
+            const db = firebase.firestore();
+            db.collection('reminders').doc(reminderId).delete().then(() => {
+                console.log("Reminder successfully deleted!");
+                loadPastReminders(); // Refresh the list after deletion
+            }).catch((error) => {
+                console.error("Error removing reminder: ", error);
+                alert("Failed to delete reminder: " + error.message);
+            });
+        } else {
+            console.log("Reminder deletion cancelled.");
+        }
+    };    
 
     loadPastReminders();
 });
