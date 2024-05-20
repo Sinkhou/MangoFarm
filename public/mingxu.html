@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Supermarket Product Categories</title>
+<title>Inventory</title>
 <link rel="stylesheet" href="mingxu.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
@@ -15,19 +16,20 @@
 <div id="header"></div>
 
 <div class="categories">
-    <h2>Product Categories</h2>
+    <h2>Inventory Categories</h2>
     <ul>
-        <li>Mango</li>
-        <li>Fertilizer</li>
-        <li>Pesticide</li>
-        <li>Tools</li>
+        <li>Mango <button class="delete-category-btn" onclick="deleteCategory(this)">X</button></li>
+        <li>Fertilizer <button class="delete-category-btn" onclick="deleteCategory(this)">X</button></li>
+        <li>Pesticide <button class="delete-category-btn" onclick="deleteCategory(this)">X</button></li>
+        <li>Tools <button class="delete-category-btn" onclick="deleteCategory(this)">X</button></li>
         <li>Add Product</li> <!-- Added "Add Product" option -->
     </ul>
+    <button id="homeScreenButton">Homescreen</button>
 </div>
 
 <div class="container">
     <div class="products">
-        <h2>Product List</h2>
+        <!-- <h2>Product List</h2> -->
         <!-- Product display area -->
         <div class="products-display">
             <!-- Mango -->
@@ -113,7 +115,6 @@
         
         <!-- Add product form -->
         <div class="add-product-form" style="display: none;">
-            <h3>Add New Product</h3>
             <input type="text" id="new-category" placeholder="Category">
             <br>
             <input type="text" id="new-product" placeholder="Product">
@@ -148,7 +149,7 @@ function addProduct() {
     let categoryIndex = -1;
     const categories = document.querySelectorAll('.categories li');
     categories.forEach((category, index) => {
-        if (category.textContent === newCategory) {
+        if (category.textContent.trim() === newCategory) {
             categoryIndex = index;
         }
     });
@@ -160,7 +161,15 @@ function addProduct() {
     } else {
         // If category does not exist, create new category list item and add product
         const newCategoryItem = document.createElement('li');
-        newCategoryItem.textContent = newCategory;
+        newCategoryItem.textContent = newCategory + ' '; // 添加空格为了布局美观
+
+        // 创建删除按钮并添加到新分类
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'X';
+        deleteBtn.className = 'delete-category-btn'; // 应用相同的按钮样式
+        deleteBtn.onclick = function() { deleteCategory(this); }; // 绑定删除分类的函数
+        newCategoryItem.appendChild(deleteBtn); // 将按钮添加到分类列表项
+
         document.querySelector('.categories ul').insertBefore(newCategoryItem, document.querySelector('.categories ul').lastElementChild);
 
         // Create corresponding product list
@@ -245,12 +254,14 @@ function decreaseQuantity(button) {
     }
 }
 
-// Delete product
 function deleteProduct(button) {
-    const productItem = button.parentElement;
-    const productList = productItem.parentElement;
-    productList.removeChild(productItem);
-    saveProductData(); // Save product quantity to local storage
+    const confirmation = confirm("Are you sure you want to delete this product?");
+    if (confirmation) {
+        const productItem = button.parentElement;
+        const productList = productItem.parentElement;
+        productList.removeChild(productItem);
+        saveProductData(); // Save product quantity to local storage
+    }
 }
 
 // Save product quantity to local storage
@@ -309,9 +320,34 @@ function updateCategoryClickEvent() {
     });
 }
 
+function deleteCategory(button) {
+    const category = button.parentElement;
+    const confirmation = confirm("Are you sure you want to delete this category?");
+    if (confirmation) {
+        category.remove();
+        updateProductsDisplay(); // Update products display after category deletion
+        updateCategoryClickEvent(); // Rebind click events to remaining categories
+    }
+}
+
+// Update products display after category deletion
+function updateProductsDisplay() {
+    const productsLists = document.querySelectorAll('.products-list');
+    productsLists.forEach(list => {
+        if (list.children.length === 0) {
+            list.parentElement.remove(); // Remove empty category
+        }
+    });
+}
+
+document.getElementById('homeScreenButton').addEventListener('click', function() {
+    window.location.href = 'dashboard.html'; // 确保路径正确
+});
+
 // Initialize event listeners when the page is loaded
 updateCategoryClickEvent();
 loadProductData(); // Load product quantity data from local storage
+
 </script>
 
 <div id="footer"></div>

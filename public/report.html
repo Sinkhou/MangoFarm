@@ -24,22 +24,25 @@
 
         table {
             width: 100%;
+            max-width: 600px;
             border-collapse: collapse;
             overflow-x: auto;
             display: block;
         }
 
-        th, td {
+        th, td{
             border: 1px solid #0a0a0a;
             text-align: center;
-            padding: 8px;
-            font-size: 16px; /* Increased font size */
+            padding: 3px;
+            font-size: 14px;
         }
+
         th {
             background-color: #eae9e9;
         }
-        .date-col { /* Special styling for date columns to increase width */
-            width: 150px;
+
+        table tr {
+            max-width: 10px;
         }
 
         #loading {
@@ -57,17 +60,17 @@
             <table id="jsonTable">
                 <thead>
                     <tr>
-                        <th colspan="1" rowspan="3" class="date-col">Field</th>
+                        <th colspan="1" rowspan="3" >Field</th>
                         <th colspan="1" rowspan="3">Locality</th>
-                        <th colspan="12" rowspan="1">Activity</th>
+                        <th colspan="4" rowspan="1">Activity</th>
                     </tr>
                     <tr>
-                        <th colspan="3">Sowing</th>
-                        <th colspan="3">Fertilize</th>
-                        <th colspan="3">Irrigate</th>
-                        <th colspan="3">Pesticide</th>
+                        <th colspan="1">Sowing</th>
+                        <th colspan="1">Fertilize</th>
+                        <th colspan="1">Irrigate</th>
+                        <th colspan="1">Pesticide</th>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <th>Type</th>
                         <th>Cycle</th>
                         <th class="date-col">Date</th>
@@ -80,7 +83,7 @@
                         <th>Time</th>
                         <th>Cycle</th>
                         <th>Duration</th>
-                    </tr>
+                    </tr> -->
                 </thead>
                 <tbody>
                 </tbody>
@@ -130,7 +133,8 @@
             //     }
             // },
         ];
-
+        
+ 
         
         document.getElementById('jsonTable').style.display = 'none';
 
@@ -259,17 +263,29 @@
 
         function appendActivityCells(row, activityArray, index, keys) {
             if (index < activityArray.length) {
-                keys.forEach(key => {
-                    const cell = row.insertCell();
-                    cell.appendChild(document.createTextNode(activityArray[index][key] || ''));
-                    if (key === 'Date') {
-                        cell.classList.add('date-col'); // Add class to date columns dynamically
-                    }
-                });
+                const cell = row.insertCell();
+                console.log(activityArray)
+                
+                for (const key in activityArray[index]) {
+                    const value = activityArray[index][key];
+                    const div = document.createElement('div'); 
+
+                    const keySpan = document.createElement('span'); 
+                    keySpan.textContent = key + ": "; 
+                    keySpan.style.fontWeight = 'bold'; 
+
+                    const valueSpan = document.createElement('span'); 
+                    valueSpan.textContent = value; 
+
+                    div.appendChild(keySpan); 
+                    div.appendChild(valueSpan);
+
+                    // div.style.padding = "5px";
+                    div.style.borderBottom = "1px solid #ddd";
+                    cell.appendChild(div);
+                }
             } else {
-                keys.forEach(() => {
-                    row.insertCell(); // Append empty cells if no data
-                });
+                row.insertCell();
             }
         }
 
@@ -280,5 +296,6 @@
 
 </body>
 </html>
+
 
 
