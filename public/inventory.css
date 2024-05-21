@@ -1,72 +1,155 @@
-body, html {
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
-    background: #f4f4f4;
 }
 
 .container {
-    max-width: 100%;
-    margin-top: 180px; 
-    margin-bottom: 100px; 
-    padding: 0px; 
+    display: flex;
+    justify-content: center;
 }
 
-input[type="text"] {
-    width: 100%; 
-    padding: 10px;
-    margin: 10px auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+.categories {
+    width: 200px; /* 左侧宽度 */
+    background-color: #f2f2f2;
+    padding: 20px;
     text-align: center;
-    background-color: #2C4636; 
-    color: white; 
-    height: 45px; 
+    position: fixed;
+    height: 100%;
 }
 
-ul {
+.categories h2 {
+    font-size: 18px; /* 字体大小 */
+    font-weight: bold; /* 加粗 */
+    color: #2C4636; /* 绿色 */
+}
+
+.categories ul {
     list-style-type: none;
     padding: 0;
+    margin: 20px 0; /* 类别之间的间距 */
+}
+
+.categories li {
+    padding: 10px 0;
+    cursor: pointer;
+    font-size: 16px; /* 字体大小 */
+    font-weight: bold; /* 加粗 */
+    color: #2C4636; /* 绿色 */
+}
+
+#homeScreenButton {
+    display: block;        /* 单独一行显示 */
+    width: 100%;           /* 宽度与容器相同 */
+    padding: 10px;         /* 增加填充使按钮更容易点击 */
+    margin-top: 10px;      /* 在按钮和列表项之间增加间距 */
+    background-color: #4CAF50; /* 按钮背景颜色 */
+    color: white;          /* 按钮文字颜色 */
+    text-align: center;    /* 文字居中显示 */
+    border: none;          /* 去除边框 */
+    border-radius: 5px;    /* 边框圆角 */
+}
+
+#homeScreenButton:hover {
+    background-color: #45a049; /* 鼠标悬停时的按钮背景颜色变化 */
+}
+
+.products {
+    padding: 20px;
     text-align: center;
+    margin-left: 200px; /* 调整为左侧宽度 */
+    width: calc(100% - 200px); /* 右侧宽度为剩余空间 */
 }
 
-li {
-    margin-bottom: 10px;
+.product {
+    display: inline-block;
+    width: 200px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #777; /* 更深的灰色边框 */
+    color: #2C4636; /* 绿色 */
+    background-color: #ccc; /* 更深的灰色背景 */
+    border-radius: 10px; /* 圆角 */
 }
 
-a {
-    display: block;
-    padding: 15px;
-    background-color: #fff;
-    color: #2C4636;
-    text-decoration: none;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-    font-weight: bold;
-    text-align: center;
-}
-
-a:hover {
-    background-color: #f0f0f0;
-}
-
-@media only screen and (max-width: 428px) {
-    .container {
-        padding: 0 10px; 
+@media only screen and (max-width: 926px) {
+    /* 适应 iPhone 14 Pro Max 的宽度 */
+    .categories {
+        width: 150px; /* 调整左侧宽度 */
+        padding: 10px;
     }
-    input[type="text"] {
-        width: calc(100% - 20px); 
+
+    .products {
+        margin-left: 150px; /* 调整右侧边距 */
+        width: calc(100% - 150px); /* 右侧宽度为剩余空间 */
+    }
+
+    .product {
+        width: 150px; /* 调整商品宽度 */
     }
 }
 
-#newProductSection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.categories ul {
+    list-style-type: none; /* 移除默认的列表项目标记 */
+    padding: 0;
+    margin: 0;
 }
-#newProductSection button {
-    margin-top: 10px;
-    margin-bottom: 20px;
+
+.categories li {
+    padding: 15px 10px; /* 增加垂直填充以增大间距 */
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: normal; /* 如果需要取消加粗 */
+    color: #2C4636; /* 保持现有颜色设置 */
+    font-family: Arial, sans-serif; /* 设置字体 */
+    border-bottom: 1px dashed #ccc; /* 添加虚线分隔 */
+}
+
+/* 移除最后一个列表项的底部边框 */
+.categories li:last-child {
+    border-bottom: none;
+}
+
+/* 新增样式 */
+.quantity {
+    width: 50px; /* Adjust width */
+    margin: 0 auto; /* Center align */
+}
+
+/* Style adjustments for product and homescreen buttons */
+.product-btn, .product button {
+    margin: 5px; /* Add margin around each button */
+    padding: 5px 10px; /* Consistent padding for all buttons */
+    background-color: #2C4636; /* Uniform background color */
+    color: white; /* Text color */
+    border: none; /* Remove borders */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.categories ul li#homeScreenButtonLi {
+    padding: 10px; /* 与其他列表项一致的内边距 */
+}
+
+.categories button#homeScreenButton {
+    width: 100%; /* 按钮宽度填满列表项 */
+    padding: 5px 0; /* 合适的垂直填充 */
+    background-color: #2C4636; /* 背景色 */
+    color: white; /* 文字颜色 */
+    border: none; /* 去除边框 */
+    border-radius: 10px;
+    cursor: pointer; /* 鼠标悬停时显示指针 */
+}
+
+/* Adjust header and footer for devices with width less than 600px */
+@media (max-width: 600px) {
+    header, footer {
+        height: 120px; /* Smaller height for small devices */
+        padding: 10px 0; /* Less padding */
+    }
+
+    main {
+        margin-top: 120px; /* Reduced to match the new header height */
+        margin-bottom: 120px; /* Reduced to match the new footer height */
+    }
 }

@@ -45,9 +45,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = 'dashboard.html';
             })
             .catch((error) => {
-                alert("Login failed: " + error.message);
+                console.log("Login failed: ", error.message);
+                const errorMessageDiv = document.getElementById('error-message');
+                errorMessageDiv.textContent = "Invalid email or password. Please try again."; // 设置错误信息
+                errorMessageDiv.style.display = 'block'; // 显示错误信息
             });
-    };
+    };    
 
     window.resetPassword = function() {
         const email = document.getElementById('login-email').value;
