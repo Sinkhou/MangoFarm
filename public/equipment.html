@@ -30,17 +30,17 @@
                 <option value="Protective Equipment">Protective Equipment</option>
                 <option value="Post-Harvest Processing Equipment">Post-Harvest Processing Equipment</option>
             </select>
+            <select id="status" required>
+                <option value="" disabled selected>Select Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
             <div class="date-input-wrapper">
                 <input type="date" id="purchaseDate" placeholder="Purchase Date" required>
             </div>
             <div class="date-input-wrapper">
                 <input type="date" id="maintenanceDate" placeholder="Next Maintenance Date" required>
             </div>
-            <select id="status" required>
-                <option value="" disabled selected>Select Status</option>
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
-            </select>
             <button type="submit" class="button-style">Add Equipment</button>
         </form>
         <h2>Equipment List</h2>

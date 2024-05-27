@@ -4,6 +4,60 @@ const db = firebase.firestore();
 // Retrieve a reference to the equipment list <ul> element
 const equipmentList = document.getElementById('equipmentList');
 
+// Add an event listener for the equipment form submission
+document.getElementById('equipmentForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const name = document.getElementById('name').value.toString();
+    const type = document.getElementById('type').value;
+    const purchaseDate = document.getElementById('purchaseDate').value;
+    const maintenanceDate = document.getElementById('maintenanceDate').value;
+    const status = document.getElementById('status').value.toString();
+    const timestamp = new Date();
+
+    // Check the purchase date
+    if (new Date(purchaseDate) > new Date()) {
+        alert('Purchase Date cannot be later than the current date.');
+        return;
+    }
+
+    if (new Date(purchaseDate) > new Date(maintenanceDate)) {
+        alert('Purchase Date cannot be later than the maintenance date.');
+        return;
+    }
+
+    // Check if the equipment name already exists
+    db.collection('equipment').where('name', '==', name).get().then(querySnapshot => {
+        if (!querySnapshot.empty) {
+            alert('Equipment name already exists.');
+            return;
+        }
+
+        // Add the new equipment document if the name is unique
+        db.collection('equipment').add({
+            name: name,
+            type: type,
+            status: status,
+            purchaseDate: purchaseDate,
+            maintenanceDate: maintenanceDate,
+            timestamp: timestamp
+        }).then(docRef => {
+            console.log("Document written with ID: ", docRef.id);
+            document.getElementById('equipmentForm').reset();
+            // Reset pseudo-placeholder after form reset
+            const purchaseDateInput = document.getElementById('purchaseDate');
+            const maintenanceDateInput = document.getElementById('maintenanceDate');
+            purchaseDateInput.dispatchEvent(new Event('blur'));
+            maintenanceDateInput.dispatchEvent(new Event('blur'));
+            alert(`Successfully added ${name}`);
+            loadEquipmentList();
+        }).catch(error => {
+            console.error("Error adding document: ", error);
+        });
+    }).catch(error => {
+        console.error("Error checking existing equipment: ", error);
+    });
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     const purchaseDateInput = document.getElementById('purchaseDate');
     const maintenanceDateInput = document.getElementById('maintenanceDate');
@@ -38,38 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
     maintenanceDateInput.dispatchEvent(new Event('blur'));
 });
 
-// Add an event listener for the equipment form submission
-document.getElementById('equipmentForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const name = document.getElementById('name').value.toString();
-    const type = document.getElementById('type').value;
-    const purchaseDate = document.getElementById('purchaseDate').value;
-    const maintenanceDate = document.getElementById('maintenanceDate').value;
-    const status = document.getElementById('status').value.toString();
-    const timestamp = new Date();
-
-    db.collection('equipment').add({
-        name: name,
-        type: type,
-        status: status,
-        purchaseDate: purchaseDate,
-        maintenanceDate: maintenanceDate,
-        updatedAt: timestamp
-    }).then(docRef => {
-        console.log("Document written with ID: ", docRef.id);
-        document.getElementById('equipmentForm').reset();
-        // Reset pseudo-placeholder after form reset
-        const purchaseDateInput = document.getElementById('purchaseDate');
-        const maintenanceDateInput = document.getElementById('maintenanceDate');
-        purchaseDateInput.dispatchEvent(new Event('blur'));
-        maintenanceDateInput.dispatchEvent(new Event('blur'));
-        loadEquipmentList();
-    }).catch(error => {
-        console.error("Error adding document: ", error);
-    });
-});
-
-
 // Function to load equipment list from Firestore
 function loadEquipmentList() {
     db.collection('equipment').onSnapshot(snapshot => {
@@ -103,7 +125,7 @@ function loadEquipmentList() {
             const deleteButton = document.createElement('button');
             deleteButton.classList.add('delete-button');
             deleteButton.textContent = 'Delete';
-            deleteButton.onclick = () => deleteEquipment(data.id);
+            deleteButton.onclick = () => confirmDeleteEquipment(data.id);
 
             listItem.appendChild(equipmentInfo);
             listItem.appendChild(deleteButton);
@@ -111,6 +133,13 @@ function loadEquipmentList() {
             equipmentList.appendChild(listItem);
         });
     });
+}
+
+function confirmDeleteEquipment(id) {
+    const userConfirmed = window.confirm('Are you sure you want to delete this equipment?');
+    if (userConfirmed) {
+        deleteEquipment(id);
+    }
 }
 
 function deleteEquipment(id) {

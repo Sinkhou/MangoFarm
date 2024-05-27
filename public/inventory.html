@@ -1,362 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inventory</title>
-<link rel="stylesheet" href="Inventory.css">
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
-<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
-<script src="firebase-config.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mango Farm App - Environmental Monitoring</title>
+    <link rel="stylesheet" href="inventory.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script>
 </head>
+
 <body>
-
-<div id="header"></div>
-<main>
-    <div class="categories">
-        <h2>Inventory Categories</h2>
-        <ul>
-            <li>Mango</li>
-            <li>Fertilizer</li>
-            <li>Pesticide</li>
-            <li>Tools</li>
-        </ul>
-        <button id="homeScreenButton">Homescreen</button>
-    </div>
-
-    <div class="container">
-        <div class="products">
-            <!-- <h2>Product List</h2> -->
-            <!-- Product display area -->
-            <div class="products-display">
-                <!-- Mango -->
-                <div class="mango products-list">
-                    <div class="product" data-name="Apple">
-                        <p>Alphonso</p>
-                        <p>Quantity: <input type="number" class="quantity" value="50"></p>
-                        <p>Unit: kg</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Banana">
-                        <p>Haden</p>
-                        <p>Quantity: <input type="number" class="quantity" value="18"></p>
-                        <p>Unit: kg</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Banana">
-                        <p>Keitt</p>
-                        <p>Quantity: <input type="number" class="quantity" value="26"></p>
-                        <p>Unit: kg</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Banana">
-                        <p>Chaunsa</p>
-                        <p>Quantity: <input type="number" class="quantity" value="45"></p>
-                        <p>Unit: kg</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Banana">
-                        <p>Kesar</p>
-                        <p>Quantity: <input type="number" class="quantity" value="75"></p>
-                        <p>Unit: kg</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Banana">
-                        <p>Palmer</p>
-                        <p>Quantity: <input type="number" class="quantity" value="46"></p>
-                        <p>Unit: kg</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                </div>
-                
-                <!-- Fertilizer -->
-                <div class="fertilizer products-list" style="display: none;">
-                    <div class="product" data-name="Tomato">
-                        <p>Nitrogen</p>
-                        <p>Quantity: <input type="number" class="quantity" value="75"></p>
-                        <p>Unit: pack</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Carrot">
-                        <p>Phosphorus</p>
-                        <p>Quantity: <input type="number" class="quantity" value="45"></p>
-                        <p>Unit: pack</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Carrot">
-                        <p>Potassium</p>
-                        <p>Quantity: <input type="number" class="quantity" value="76"></p>
-                        <p>Unit: pack</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Carrot">
-                        <p>Compound</p>
-                        <p>Quantity: <input type="number" class="quantity" value="46"></p>
-                        <p>Unit: pack</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Carrot">
-                        <p>Micronutrient</p>
-                        <p>Quantity: <input type="number" class="quantity" value="74"></p>
-                        <p>Unit: pack</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Carrot">
-                        <p>Organic</p>
-                        <p>Quantity: <input type="number" class="quantity" value="26"></p>
-                        <p>Unit: pack</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                </div>
-                
-                <!-- Pesticide -->
-                <div class="pesticide products-list" style="display: none;">
-                    <div class="product" data-name="Coke">
-                        <p>Insecticides</p>
-                        <p>Quantity: <input type="number" class="quantity" value="30"></p>
-                        <p>Unit: bottle</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Tea">
-                        <p>Fungicides</p>
-                        <p>Quantity: <input type="number" class="quantity" value="35"></p>
-                        <p>Unit: pack</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Tea">
-                        <p>Acaricides</p>
-                        <p>Quantity: <input type="number" class="quantity" value="46"></p>
-                        <p>Unit: L</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Tea">
-                        <p>Herbicides</p>
-                        <p>Quantity: <input type="number" class="quantity" value="47"></p>
-                        <p>Unit: pack</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Tea">
-                        <p>Growth Regulators</p>
-                        <p>Quantity: <input type="number" class="quantity" value="36"></p>
-                        <p>Unit: L</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                </div>
-                
-                <!-- Tools -->
-                <div class="tools products-list" style="display: none;">
-                    <div class="product" data-name="Chips">
-                        <p>Pruning Shears</p>
-                        <p>Quantity: <input type="number" class="quantity" value="40"></p>
-                        <p>Unit: piece</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Chocolate">
-                        <p>Loppers</p>
-                        <p>Quantity: <input type="number" class="quantity" value="45"></p>
-                        <p>Unit: piece</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Chocolate">
-                        <p>Agricultural Sprayers</p>
-                        <p>Quantity: <input type="number" class="quantity" value="68"></p>
-                        <p>Unit: unit</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Chocolate">
-                        <p>Garden Hoes</p>
-                        <p>Quantity: <input type="number" class="quantity" value="42"></p>
-                        <p>Unit: piece</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Chocolate">
-                        <p>Gloves</p>
-                        <p>Quantity: <input type="number" class="quantity" value="18"></p>
-                        <p>Unit: pair</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Chocolate">
-                        <p>Ladders</p>
-                        <p>Quantity: <input type="number" class="quantity" value="46"></p>
-                        <p>Unit: unit</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Chocolate">
-                        <p>Fruit Picking Bags</p>
-                        <p>Quantity: <input type="number" class="quantity" value="46"></p>
-                        <p>Unit: piece</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Chocolate">
-                        <p>Tillage Machinery</p>
-                        <p>Quantity: <input type="number" class="quantity" value="39"></p>
-                        <p>Unit: unit</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                    <div class="product" data-name="Chocolate">
-                        <p>Soil Testing Equipment</p>
-                        <p>Quantity: <input type="number" class="quantity" value="45"></p>
-                        <p>Unit: set</p> <!-- Added unit -->
-                        <button onclick="increaseQuantity(this)">+1</button> <!-- Added increase quantity button -->
-                        <button onclick="decreaseQuantity(this)">-1</button> <!-- Added decrease quantity button -->
-                    </div>
-                </div>
+    <div id="header"></div>
+    <main>
+        <div>
+            <div>
+                <input type="text" id="searchBox" placeholder="Search items">
+                <button onclick="searchItems()">Search</button>
+            </div>       
+            <div id="MangoTableContainer" style="height: 300px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventoryData">
+                    </tbody>
+                </table>
+                <button onclick="loadinventory()">Update</button>
             </div>
+            <div>
+                <select id="itemSelect">
+                    <!-- 這裡將動態填充選項 -->
+                </select>
+                <input type="text" id="updateQuantity" placeholder="Enter new quantity">
+                <button onclick="updateItem()">Submit</button>
+            </div>
+            <div>
+                <input type="text" id="newItemName" placeholder="Enter item name">
+                <input type="text" id="newItemQuantity" placeholder="Enter quantity">
+                <button onclick="addNewItem()">Add New Item</button>
+            </div> 
+            <div>
+                <select id="deleteItemSelect">
+                    <!-- 選項將在JavaScript中動態生成 -->
+                </select>
+                <button style="background-color: red;", onclick="deleteSelectedItem()">Delete Selected Item</button>
+            </div>     
         </div>
-    </div>
-</main>
-<script>
-// Create product list item
-function createProductItem(productName, quantity, unit) { // Add unit parameter
-    const newProductItem = document.createElement('div');
-    newProductItem.classList.add('product');
-    newProductItem.setAttribute('data-name', productName); // Set product name attribute
-    newProductItem.innerHTML = `<p>${productName}</p><p>Quantity: <input type="number" class="quantity" value="${quantity}"></p><p>Unit: ${unit}</p>`; // Display unit
-    const increaseBtn = document.createElement('button');
-    increaseBtn.textContent = '+1';
-    increaseBtn.onclick = function() {
-        increaseQuantity(this);
-    };
-    newProductItem.appendChild(increaseBtn);
-    const decreaseBtn = document.createElement('button');
-    decreaseBtn.textContent = '-1';
-    decreaseBtn.onclick = function() {
-        decreaseQuantity(this);
-    };
-    newProductItem.appendChild(decreaseBtn);
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.onclick = function() {
-        deleteProduct(this);
-    };
-    newProductItem.appendChild(deleteBtn);
-    return newProductItem;
-}
-
-// Increase quantity
-function increaseQuantity(button) {
-    const input = button.parentElement.querySelector('.quantity');
-    let currentValue = parseInt(input.value);
-    currentValue++;
-    input.value = currentValue;
-    // Save to localStorage
-    const productName = button.closest('.product').getAttribute('data-name');
-    localStorage.setItem(productName, currentValue);
-}
-
-// Decrease quantity
-function decreaseQuantity(button) {
-    const input = button.parentElement.querySelector('.quantity');
-    let currentValue = parseInt(input.value);
-    if (currentValue > 0) {
-        currentValue--;
-        input.value = currentValue;
-        // Save to localStorage
-        const productName = button.closest('.product').getAttribute('data-name');
-        localStorage.setItem(productName, currentValue);
-    }
-}
-
-// Function to save quantity to localStorage when the input changes
-function saveQuantityOnChange(input) {
-    input.addEventListener('change', function() {
-        const currentValue = parseInt(input.value);
-        const productName = input.closest('.product').getAttribute('data-name');
-        localStorage.setItem(productName, currentValue);
-    });
-}
-
-// Apply the change listener to all quantity inputs
-function applyQuantityChangeListeners() {
-    const quantityInputs = document.querySelectorAll('.quantity');
-    quantityInputs.forEach(input => {
-        saveQuantityOnChange(input);
-    });
-}
-
-// Load product data from local storage
-function loadProductData() {
-    const products = document.querySelectorAll('.product');
-    products.forEach(product => {
-        const productName = product.getAttribute('data-name');
-        const storedQuantity = localStorage.getItem(productName);
-        if (storedQuantity) {
-            product.querySelector('.quantity').value = storedQuantity;
-        }
-    });
-}
-
-// Add these functions to be called when the document is ready
-document.addEventListener('DOMContentLoaded', function() {
-    loadProductData();
-    applyQuantityChangeListeners();
-    updateCategoryClickEvent();
-});
-
-document.getElementById('homeScreenButton').addEventListener('click', function() {
-    window.location.href = 'dashboard.html';
-});
-
-document.getElementById('homeScreenButton').addEventListener('click', function() {
-    window.location.href = 'dashboard.html';
-});
-
-// Update category click event
-function updateCategoryClickEvent() {
-    const categories = document.querySelectorAll('.categories li');
-    categories.forEach((category, index) => {
-        category.addEventListener('click', () => {
-            // Ensure other categories and their associated product lists are handled correctly
-            const productsLists = document.querySelectorAll('.products-list');
-            productsLists.forEach((list, listIndex) => {
-                if (index === listIndex) {
-                    list.style.display = 'block'; // Display the product list associated with the clicked category
-                } else {
-                    list.style.display = 'none'; // Hide other product lists
-                }
-            });
-        });
-    });
-}
-
-// Call this function on page load or after dynamically adding categories
-updateCategoryClickEvent();
-
-document.getElementById('homeScreenButton').addEventListener('click', function() {
-    window.location.href = 'dashboard.html'; 
-});
-</script>
-
-<div id="footer"></div>
-<script src="include.js"></script> <!-- Script to include header and footer -->
-
+        <div id="homescreen_button_container">
+            <button id="homescreen_button" onclick="window.location.href='dashboard.html'">Homescreen</button>
+        </div>
+    </main>
+    <div id="footer"></div>
+    <script src="inventory.js"></script>
+    <script src="include.js"></script>
 </body>
 </html>

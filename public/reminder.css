@@ -18,7 +18,7 @@
 }
 
 #send-reminder-form input[type="text"], #send-reminder-form input[type="email"],#send-reminder-form input[type="date"], #send-reminder-form input[type="time"], #send-reminder-form select {
-    width: calc(100% - 24px);
+    width: 330px;
     padding: 12px;
     margin: 8px 0;
     border: 1px solid #ccc;
